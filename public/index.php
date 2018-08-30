@@ -27,3 +27,19 @@ function autoload($class)
 spl_autoload_register('autoload');
 $_c = new controllers\UserController;
 $_c->hello();
+
+//  编写视图函数
+function view($viewFileName,$data=[])
+{
+    //  由于$data是数组，书写不简便
+    //  将数组变量化
+    extract($data);
+    /*Notice: Undefined variable:
+     name in E:\blog\views\users\hello.html on line 9*/
+
+     
+    //  对获取到的视图文件路径处理
+    $path = str_replace('.','/',$viewFileName);
+    //   对文件路径进行拼接
+    require(ROOT.'/views/'.$path.'.html');
+}
