@@ -145,17 +145,54 @@ class Blog
     //  生成内容静态页
     public function content_2_html()
     {
-         //   取日志数据
-         $stmt = $pdo->query("SELECT * FROM blog");
-         $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-         
-         //  将取出的数据放到缓冲区中
-         //  开启缓冲区
-         // ob_start();
- 
-         //  获取数据的总条数
-         // $stmt = $pdo->query("SELECT count(*) FROM blog");
-         // $num = $stmt->fetch(PDO::FETCH_COLUMN);
-         return $blogs;
+        //   取日志数据
+        $stmt = $pdo->query("SELECT * FROM blog");
+        $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
+        //  将取出的数据放到缓冲区中
+        //  开启缓冲区
+        // ob_start();
+
+        //  获取数据的总条数
+        // $stmt = $pdo->query("SELECT count(*) FROM blog");
+        // $num = $stmt->fetch(PDO::FETCH_COLUMN);
+        //  生成静态页
+        foreach($blogs as $v)
+        {
+            //  加载视图
+            view('blogs.content',[
+                'blogs'=>$v
+            ]);
+
+            //  取出缓冲区的内容
+            $str = ob_get_contents();
+            //  生成静态页
+            file_put_contents(ROOT.'/public/contents/'.$v['id'].'.html',$str);
+            //  清空缓冲区
+            ob_clean();
+        }
+    }
+
+
+    //   获取20条数据
+    public function content_2_index()
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM blog WHERE is_show = 1 ORDER BY created_at DESC LIMIT 20");
+        $stmt->execute();
+        $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        //   开启缓冲区
+        ob_start();
+
+        view('index.index',[
+            'blogs'=>$blogs
+        ]);
+        
+        $str = ob_get_contents();
+        //   将缓冲区的数据，生成静态页面
+        file_put_contents(ROOT.'/public/index.html',$str);
+        // 清空缓冲区
+        ob_clean();
+        
     }
 }
