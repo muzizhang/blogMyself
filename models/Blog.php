@@ -238,4 +238,28 @@ class Blog
         }
         echo  $num;
     }
+
+    //  取出redis中的所有数据
+    public function displayToDo()
+    {
+        //  连接redis  服务器
+        $redis = new \Predis\Client([
+            'scheme' => 'tcp',
+            'host'   => '127.0.0.1',
+            'port'   => 6379,
+        ]);
+        //  返回整个hash表元素
+        $data = $redis->hgetall('display');
+        foreach($data as $k=>$v)
+        {
+            $display = [];
+
+            $str = explode('-',$k);
+            //  将返回的数据，添加到数据库中
+            $stmt = $this->pdo->prepare("UPDATE blog SET display = ? WHERE id = ?");
+            $display[] = $v;
+            $display[] =$str[1];
+            $stmt->execute($display);
+        }
+    }
 }

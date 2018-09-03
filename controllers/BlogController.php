@@ -41,4 +41,11 @@ class BlogController
         $display = new Blog;
         $display->content_2_display();
     }
+
+    //   更新浏览量
+    public function displayToContent()
+    {
+        $display = new Blog;
+        $display->displayToDo();
+    }
 }
