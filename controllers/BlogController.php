@@ -136,4 +136,44 @@ class BlogController
             'btn'=>$btn
         ]);
     }
+
+    //  生成内容静态页
+    public function content_to_html()
+    {
+        //   连接数据库
+        $pdo = new PDO("mysql:host=127.0.0.1;dbname=blog",'root','123456');
+        //   设置编码
+        $pdo->exec("SET NAMES utf8");
+
+        //   取日志数据
+        $stmt = $pdo->query("SELECT * FROM blog");
+        $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        //  将取出的数据放到缓冲区中
+        //  开启缓冲区
+        // ob_start();
+
+        //  获取数据的总条数
+        // $stmt = $pdo->query("SELECT count(*) FROM blog");
+        // $num = $stmt->fetch(PDO::FETCH_COLUMN);
+
+        //  生成静态页
+        foreach($blogs as $v)
+        {
+            
+            //  加载视图
+            view('blogs.content',[
+                'blogs'=>$v
+            ]);
+
+            //  取出缓冲区的内容
+            $str = ob_get_contents();
+            //  生成静态页
+            file_put_contents(ROOT.'/public/contents/'.$v['id'].'.html',$str);
+            //  清空缓冲区
+            ob_clean();
+        }
+
+       
+    }
 }
