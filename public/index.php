@@ -25,28 +25,38 @@ function autoload($class)
 }
 
 
-//  获取地址栏路径    
-/* $_SERVER   
-        是一个全局变量
-        包含了头信息，路径，以及脚本位置等等信息的数组
-        是由web服务器创建
-*/
-// echo "<pre>";
-// var_dump( $_SERVER);
-//   判断地址栏是否有路径
-if(isset($_SERVER['PATH_INFO']))
+//  判断访问模式
+if(php_sapi_name() == 'cli')
 {
-    //  对获取到的路径进行处理,  将字符串拆分为数组
-    $path = explode('/',$_SERVER['PATH_INFO']);
-    $controller = ucfirst($path[1]).'Controller';
-    $active = $path[2];
+    $controller = ucfirst($argv[1]).'controller';
+    $active = $argv[2];
 }
 else
-{   
-    //  否则，默认访问 IndexController/index
-    $controller = 'IndexController';
-    $active = 'index';
+{
+    //  获取地址栏路径    
+    /* $_SERVER   
+            是一个全局变量
+            包含了头信息，路径，以及脚本位置等等信息的数组
+            是由web服务器创建
+    */
+    // echo "<pre>";
+    // var_dump( $_SERVER);
+    //   判断地址栏是否有路径
+    if(isset($_SERVER['PATH_INFO']))
+    {
+        //  对获取到的路径进行处理,  将字符串拆分为数组
+        $path = explode('/',$_SERVER['PATH_INFO']);
+        $controller = ucfirst($path[1]).'Controller';
+        $active = $path[2];
+    }
+    else
+    {   
+        //  否则，默认访问 IndexController/index
+        $controller = 'IndexController';
+        $active = 'index';
+    }
 }
+
 //  获取完整的控制器
 $fullController = 'controllers\\'.$controller;
 
