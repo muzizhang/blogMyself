@@ -146,7 +146,7 @@ class Blog
     public function content_2_html()
     {
         //   取日志数据
-        $stmt = $pdo->query("SELECT * FROM blog");
+        $stmt = $this->pdo->query("SELECT * FROM blog");
         $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         
         //  将取出的数据放到缓冲区中
@@ -194,5 +194,48 @@ class Blog
         // 清空缓冲区
         ob_clean();
         
+    }
+
+    //  浏览量
+    public function content_2_display()
+    {
+        //  判断内存中是否有该  日志id，如若没有则访问数据库，+1  并将其加入到内存中，
+        //  如若存在，则内存中的数据 +1
+
+        //  连接redis  服务器
+        $redis = new \Predis\Client([
+            'scheme' => 'tcp',
+            'host'   => '127.0.0.1',
+            'port'   => 6379,
+        ]);
+
+        //  获取地址栏上的id
+        $id = $_GET['id'];
+
+        //  拼接  redis 中的key值
+        $key = 'blog-'.$id;
+        $num;
+        //  判断该id  在redis中是否存在
+        //  返回hash 表中指定key可以是否存在
+        if($redis->hexists('display',$key))
+        {
+            //  对指定的key进行累加
+            $num = $redis->hincrby('display',$key,1);
+        }
+        else
+        {
+            //  连接数据库进行查询
+            $stmt = $this->pdo->prepare("SELECT display FROM blog WHERE id = ?");
+            $data[] = $id;
+            $stmt->execute($data);
+            $num = $stmt->fetch(\PDO::FETCH_COLUMN);
+            // echo $num;
+            // die;
+            $num++;
+            //  并将其放置到redis
+            $redis->hset('display',$key,$num);
+            
+        }
+        echo  $num;
     }
 }

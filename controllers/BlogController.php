@@ -34,4 +34,11 @@ class BlogController
         $blogs = new Blog;
         $blogs = $blogs->content_2_index();
     }
+
+    //  浏览量
+    public function content_to_display()
+    {
+        $display = new Blog;
+        $display->content_2_display();
+    }
 }

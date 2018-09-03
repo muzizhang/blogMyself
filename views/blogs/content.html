@@ -6,6 +6,25 @@
 </head>
 <body>
     <h1><?=$blogs['title']?></h1>
+    <p>浏览量：<span id="display"></span></p>
     <p><?=$blogs['content']?></p>
 </body>
 </html>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+</script>
+<script>
+    var id = "<?=$blogs['id']?>";
+    var url = '/blog/content_to_display?id='+id;
+    //  使用js实现页面浏览量实时显示
+    $.ajax({
+        type:'GET',
+        url:url,
+        success:function(data)
+        {
+            $('#display').html(data);
+        }
+    });
+</script>
