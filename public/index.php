@@ -70,3 +70,22 @@ function view($viewFileName,$data=[])
     //   对文件路径进行拼接
     require(ROOT.'/views/'.$path.'.html');
 }
+
+//  获取地址栏参数
+function GetUrlParams($except = [])
+{
+    //  循环删除变量
+    // ?keyword=&start_date=&end_date=&is_show=&page=2&page=3
+    foreach($except as $v)
+    {
+        unset($_GET[$v]);
+    }
+
+    $str = '';
+    foreach($_GET as $k=>$v)
+    {
+
+        $str .= "$k={$v}&";
+    }
+    return $str;
+}
