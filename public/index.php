@@ -2,6 +2,9 @@
 //  定义一个常量
 define('ROOT',dirname(dirname(__FILE__)));
 
+//  引入redis 自动加载类文件
+require(ROOT.'/vendor/autoload.php');
+
 // $_c = new controllers\UserController;
 /* Fatal error: 
     Uncaught Error: 
