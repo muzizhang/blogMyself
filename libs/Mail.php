@@ -21,7 +21,7 @@ class Mail
 
     public function send($title,$content,$to)
     {
-   
+        
         // Create a message
         $message = (new \Swift_Message($title))      //   创建邮件接收信息
         ->setFrom([$this->config['from_email'] => $this->config['from_name']])
@@ -29,7 +29,19 @@ class Mail
         ->setBody($content)
         ;
 
-        // Send the message
-        $this->mailer->send($message);   //  发送邮件
+        //  判断是什么模式
+        if($this->config['mode']=='debug')
+        {
+            $blog = new Log;
+            $mess = $message->toString();
+            $blog->log('email',$mess);
+        }
+        else
+        {
+            // Send the message
+            $this->mailer->send($message);   //  发送邮件
+        }
+
+
     }
 }

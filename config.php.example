@@ -13,6 +13,7 @@ return [
         'charset'=>'utf8'
     ],
     'email'=>[
+        'mode'=>''  // debug 调试模式  production 生产模式
         'port'=>25,
         'ip'=>'smtp.126.com',    //    邮件服务器id
         'name'=>'itmuzi@126.com',    //  发邮件账号

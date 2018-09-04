@@ -13,7 +13,7 @@ class MailController
         //   设置  php永不超时
         ini_set('default_socket_timeout',-1);
 
-        echo "发邮件队列启动成功！";
+        echo "发邮件队列启动成功！\r\n";
         
         while(true)
         {
@@ -37,7 +37,7 @@ class MailController
             //  发邮件
             $mailer->send($message['title'],$message['content'],$message['from']);
 
-            echo "邮件发送成功";
+            echo "邮件发送成功\r\n";
         }
       
     }
