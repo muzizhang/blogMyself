@@ -4,6 +4,6 @@ namespace controllers;
 class IndexController
 {
     public function index(){
-        echo "怀闯<br>";
+        echo "渣男=======怀闯<br>";
     }
 }

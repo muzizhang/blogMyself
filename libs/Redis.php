@@ -27,14 +27,11 @@ class Redis
     
     public static function instance()
     {
+        $config = config('redis');
         //  检测类，是否被实例化
         if(!(self::$redis instanceof self))
         {
-            self::$redis = new \Predis\Client([
-                'scheme' => 'tcp',
-                'host'   => '127.0.0.1',
-                'port'   => 6379,
-            ]);
+            self::$redis = new \Predis\Client($config);
         }
         return self::$redis;
     }

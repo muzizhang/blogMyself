@@ -16,12 +16,13 @@ class Base
     public static $pdo = null;
     //  构造函数
     public function __construct(){
+        $config = config('db');
         if(self::$pdo == null)
         {
             //  连接数据库
-            self::$pdo = new \PDO('mysql:host=127.0.0.1;dbname=blog','root','123456');
+            self::$pdo = new \PDO("mysql:host=".$config['host'].";dbname=".$config['dbname'],$config['user'],$config['password']);
             //  设置编码
-            self::$pdo->exec("SET NAMES utf8");
+            self::$pdo->exec("SET NAMES ".$config['charset']);
         }
     }
 }

@@ -1,0 +1,23 @@
+<?php
+return [
+    'redis'=>[
+        'scheme' => 'tcp',
+        'host'   => '127.0.0.1',
+        'port'   => 6379,
+    ],
+    'db'=>[
+        'host'=>'127.0.0.1',
+        'dbname'=>'',   //  数据库名
+        'user'=>'root',     
+        'password'=>'',    //  数据库密码
+        'charset'=>'utf8'
+    ],
+    'email'=>[
+        'port'=>25,
+        'ip'=>'smtp.126.com',    //    邮件服务器id
+        'name'=>'itmuzi@126.com',    //  发邮件账号
+        'password'=>'itmuzi980615',    //   授权码
+        'from_email'=>'',   // 发送账号
+        'from_name'=>''      //   发送名称
+    ]
+];

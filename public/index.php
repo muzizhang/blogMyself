@@ -102,3 +102,26 @@ function GetUrlParams($except = [])
     }
     return $str;
 }
+
+//   配置常用数据
+function config($params)
+{
+    /* 每次使用配置数据，都会加载相同的文件
+        解决办法：
+            判断$config的值  是否为空
+            如若不为空，则不重新加载
+    */
+    /* 变量的重要特性：
+        静态变量（static变量）
+        静态变量仅在局部函数域中存在，有且只被初始化一次
+        当程序执行离开此作用域时，其值不会消失，会使用上次的结果
+    */   
+    static $config = null;
+
+    if($config === null){
+        $config = Require(ROOT.'/config.php');
+    }
+    //  引入配置文件
+    return $config[$params];
+
+}

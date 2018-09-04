@@ -58,4 +58,18 @@ class TestController
         $result = $mailer->send($message);
         echo 'ok';
     }
+
+    public function config()
+    {
+        $a = config('redis');
+        echo '<pre>';
+        var_dump($a);
+        $b = config('db');
+        echo '<pre>';
+        var_dump($b);
+        $c = config('email');
+        echo '<pre>';
+        var_dump($c);
+        
+    }
 }
