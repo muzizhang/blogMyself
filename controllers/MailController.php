@@ -7,11 +7,7 @@ class MailController
     public function send()
     {
         //  连接redis  服务器
-        $redis = new \Predis\Client([
-            'scheme' => 'tcp',
-            'host'   => '127.0.0.1',
-            'port'   => 6379,
-        ]);
+        $redis = \libs\Redis::instance();
         $mailer = new \libs\Mail;
 
         //   设置  php永不超时

@@ -1,17 +1,8 @@
 <?php
 namespace models;
 
-class Blog
+class Blog extends Base
 {
-    //  定义属性
-    public $pdo;
-    //  构造函数
-    public function __construct(){
-        //  连接数据库
-        $this->pdo = new \PDO('mysql:host=127.0.0.1;dbname=blog','root','123456');
-        //  设置编码
-        $this->pdo->exec("SET NAMES utf8");
-    }
 
     //  搜索
     public function search()
@@ -118,7 +109,7 @@ class Blog
         $offset = ($p-1)*$page;
 
         //   计算数据库中的总记录
-        $num = $this->pdo->prepare("SELECT count(id) FROM blog WHERE $where");
+        $num = self::$pdo->prepare("SELECT count(id) FROM blog WHERE $where");
         $num->execute($data);
         $pageNum = $num->fetch(\PDO::FETCH_COLUMN);
         //    计算总页数
@@ -133,7 +124,7 @@ class Blog
         }
 
         //    查询日志列表信息
-        $stmt = $this->pdo->prepare("SELECT * FROM blog WHERE $where ORDER By $odby $odway LIMIT $offset,$page");
+        $stmt = self::$pdo->prepare("SELECT * FROM blog WHERE $where ORDER By $odby $odway LIMIT $offset,$page");
         $stmt->execute($data);
         $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return [
@@ -146,7 +137,7 @@ class Blog
     public function content_2_html()
     {
         //   取日志数据
-        $stmt = $this->pdo->query("SELECT * FROM blog");
+        $stmt = self::$pdo->query("SELECT * FROM blog");
         $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         
         //  将取出的数据放到缓冲区中
@@ -177,7 +168,7 @@ class Blog
     //   获取20条数据
     public function content_2_index()
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM blog WHERE is_show = 1 ORDER BY created_at DESC LIMIT 20");
+        $stmt = self::$pdo->prepare("SELECT * FROM blog WHERE is_show = 1 ORDER BY created_at DESC LIMIT 20");
         $stmt->execute();
         $blogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -203,11 +194,7 @@ class Blog
         //  如若存在，则内存中的数据 +1
 
         //  连接redis  服务器
-        $redis = new \Predis\Client([
-            'scheme' => 'tcp',
-            'host'   => '127.0.0.1',
-            'port'   => 6379,
-        ]);
+        $redis = \libs\Redis::instance();
 
         //  获取地址栏上的id
         $id = $_GET['id'];
@@ -225,7 +212,7 @@ class Blog
         else
         {
             //  连接数据库进行查询
-            $stmt = $this->pdo->prepare("SELECT display FROM blog WHERE id = ?");
+            $stmt = self::$pdo->prepare("SELECT display FROM blog WHERE id = ?");
             $data[] = $id;
             $stmt->execute($data);
             $num = $stmt->fetch(\PDO::FETCH_COLUMN);
@@ -243,11 +230,7 @@ class Blog
     public function displayToDo()
     {
         //  连接redis  服务器
-        $redis = new \Predis\Client([
-            'scheme' => 'tcp',
-            'host'   => '127.0.0.1',
-            'port'   => 6379,
-        ]);
+        $redis = \libs\Redis::instance();
         //  返回整个hash表元素
         $data = $redis->hgetall('display');
         foreach($data as $k=>$v)
@@ -256,7 +239,7 @@ class Blog
 
             $str = explode('-',$k);
             //  将返回的数据，添加到数据库中
-            $stmt = $this->pdo->prepare("UPDATE blog SET display = ? WHERE id = ?");
+            $stmt = self::$pdo->prepare("UPDATE blog SET display = ? WHERE id = ?");
             $display[] = $v;
             $display[] =$str[1];
             $stmt->execute($display);
