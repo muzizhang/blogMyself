@@ -72,4 +72,12 @@ class TestController
         var_dump($c);
         
     }
+
+    //   添加日志
+    public function log()
+    {
+        $log = new \libs\Log;
+        $log->log('email','拜拜');
+        echo 'ok';
+    }
 }
