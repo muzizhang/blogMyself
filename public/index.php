@@ -1,7 +1,13 @@
 <?php
 //  定义一个常量
 define('ROOT',dirname(dirname(__FILE__)));
+//  由于session是保存在文件中，读取时，需要多次使用硬盘，减慢读取速率
+//     解决办法：   将session保存在redis中
+ini_set('session.save_handler','redis');
+//    设置redis 服务器的地址，端口，使用的数据库
+ini_set('session.save_path','tcp://127.0.0.1:6379?database=3');
 
+session_start();
 //  引入redis 自动加载类文件
 require(ROOT.'/vendor/autoload.php');
 
@@ -119,9 +125,55 @@ function config($params)
     static $config = null;
 
     if($config === null){
-        $config = Require(ROOT.'/config.php');
+        $config = require(ROOT.'/config.php');
     }
     //  引入配置文件
     return $config[$params];
 
+}
+
+//   跳转到任意页
+function redirect($url)
+{
+    header("Location:".$url);
+    exit;
+}
+
+//  返回上一页
+function back()
+{
+    redirect($_SERVER['HTTP_REFERER']);
+}
+
+//   配置错误或者成功信息
+/* 
+    参数：
+        $message =  提示信息
+        $type    类型
+            - 0、 alert
+            - 1、 显示单独页面
+            - 2、 在下一个页面显示
+        注：$seconds  只有在  type = 1 时有效，代码几秒自动跳转
+*/
+function message($message,$type,$url,$seconds=5)
+{
+    if($type==0)
+    {
+        echo "<script>alert('{$message}');location.href='{$url}'</script>";
+        exit;
+    }
+    else if($type == 1 )
+    {
+        view('common.message',[
+            'message'=>$message,
+            'url'=>$url,
+            'seconds'=>$seconds
+        ]);
+    }
+    else if($type == 2 )
+    {
+        //  把消息保存到session中
+        $_SESSION['_MESS_'] = $message;
+        redirect($url);
+    }
 }

@@ -5,6 +5,40 @@ use models\User;
 
 class UserController
 {
+    //  退出
+    public function logout()
+    {
+        //  删除session
+        $_SESSION = [];
+        // back();
+        //  跳回首页
+        // redirect('/');
+    }
+    //  链接登录
+    public function login()
+    {
+        view('users.login');
+    }
+
+    // 检测登录
+    public function dologin()
+    {
+        //  接收登录信息
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
+
+        //  将获取到的数据，和数据库中数据进行对比，是否一致
+        $user = new User;
+        if($user->login($email,$password))
+        {
+            message('登录成功',2,"/blog/index");
+        }
+        else
+        {
+            message("登录失败",1,back());
+        }
+    }
+
     public function hello(){
         //   实例化对象
         $user = new user;
@@ -45,10 +79,11 @@ class UserController
         ]);
         // echo '<pre>';
         // var_dump($value);
+
         //  拼接键名
         $key = "temp_user:{$code}";
         // echo $key;
-        $redis->setex($key,300,$value);
+        $redis->setex($key,3000,$value);
 
         // 3、把消息放到消息队列中
         
@@ -62,18 +97,19 @@ class UserController
         //  构造数据
         $message = [
             'title'=>'欢迎加入全栈1班',
-            'content'=>"点击以下链接进行激活：<br>
-             <a href='http://localhost:9999/user/active_user?code={$code}'>http://localhost:9999/user/active_user?code={$code}</a>。
-             <p> 如果按钮不能点击，请复制上面链接地址，在浏览器中访问来激活账号！</p>",
+            'content'=>"点击一下链接进行激活：<br>
+            <a href='http://localhost:9999/user/active_user?code={$code}'>http://localhost:9999/user/active_user?code={$code}</a>
+            <p>如不能点击激活，请自行复制链接进行激活</p>",
             'from'=> $from
         ];
 
      
         $message = json_encode($message);
-        echo '<pre>';
-        var_dump($message);
+        // echo '<pre>';
+        // var_dump($message);
 
-        $redis->lpush('email',$message);
+        $redis->lpush('email', $message); 
+
         echo 'ok';
     }
 
@@ -87,9 +123,10 @@ class UserController
         $redis = \libs\Redis::instance();
 
         //  拼出key值
-        $key = 'temp_user:{$code}';
+        $key = 'temp_user:'.$code;
         //  根据  根据激活码取出数据
         $data = $redis->get($key);
+
         if($data)
         {
             // 从 redis 中删除激活码
@@ -101,6 +138,7 @@ class UserController
             $user->add($data['email'], $data['password']);
             // 跳转到登录页面
             // header('Location:/user/login');
+            redirect('/user/login');
         }
         else{
             die('激活码无效！');

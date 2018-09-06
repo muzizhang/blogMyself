@@ -24,5 +24,6 @@ class Base
             //  设置编码
             self::$pdo->exec("SET NAMES ".$config['charset']);
         }
+        return self::$pdo;
     }
 }

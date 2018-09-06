@@ -29,7 +29,6 @@ class Mail
         ->setBody($content)
         ;
 
-        echo $this->config['mode'];
 
         //  判断是什么模式
         if($this->config['mode']=='debug')

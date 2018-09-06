@@ -3,6 +3,16 @@ namespace controllers;
 
 class TestController
 {
+    public function info()
+    {
+        message('测试情况',2,'/');
+    } 
+    
+    public function test()
+    {
+        message('测试情况',0,'/');
+    }
+
     public function mode()
     {
         //   php_sapi_name()   函数  获取当前PHP运行的模式
