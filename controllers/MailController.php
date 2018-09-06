@@ -27,7 +27,9 @@ class MailController
                         '消息的JSON字符串'
                     ]
             */
+            
             $data = $redis->brpop('email',0);
+            
 
             //  将取出的消息反序列化（转回数组）
             //  json_decode()   默认把数据转成一个对象，

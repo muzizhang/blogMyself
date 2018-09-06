@@ -21,13 +21,15 @@ class Mail
 
     public function send($title,$content,$to)
     {
-        
+
         // Create a message
         $message = (new \Swift_Message($title))      //   创建邮件接收信息
         ->setFrom([$this->config['from_email'] => $this->config['from_name']])
         ->setTo([$to[0], $to[0] => $to[1] ])
         ->setBody($content)
         ;
+
+        echo $this->config['mode'];
 
         //  判断是什么模式
         if($this->config['mode']=='debug')
@@ -39,7 +41,7 @@ class Mail
         else
         {
             // Send the message
-            $this->mailer->send($message);   //  发送邮件
+            $this->mailer->send($message);   //  发送邮件    send() redis 函数
         }
 
 
