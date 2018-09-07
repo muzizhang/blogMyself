@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>添加日志</title>
+</head>
+<body>
+    <?php view('common.nav') ?>
+    <h1>添加日志</h1>
+    <form action="/blog/add" method="POST" enctype="multipart/form-data">
+        <div>
+            标题：
+            <input type="text" name="title">
+        </div>
+        <div>
+            内容：
+            <textarea name="content" id="content"></textarea>
+        </div>
+        <div>
+            是否公开：
+            <input type="radio" name="is_show" value="1" checked>公开
+            <input type="radio" name="is_show" value="0">不公开
+        </div>
+        <div>
+            <input type="submit" value="发表日志">
+        </div>
+    </form>
+    <?php view('common.footer') ?>
+</body>
+</html>
+
+<link rel="stylesheet" type="text/css" href="/simditor-2.3.6/styles/simditor.css" />
+
+<script type="text/javascript" src="/simditor-2.3.6/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/module.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/hotkeys.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/uploader.js"></script>
+<script type="text/javascript" src="/simditor-2.3.6/scripts/simditor.js"></script>
+<!-- 
+    simditor 用法
+        1、引入包文件
+            <link rel="stylesheet" type="text/css" href="[style path]/simditor.css" />
+
+            <script type="text/javascript" src="[script path]/jquery.min.js"></script>
+            <script type="text/javascript" src="[script path]/module.js"></script>
+            <script type="text/javascript" src="[script path]/hotkeys.js"></script>
+            <script type="text/javascript" src="[script path]/uploader.js"></script>
+            <script type="text/javascript" src="[script path]/simditor.js"></script>
+
+        注：
+            是基于  jquery和 module.js
+            hotkeys.js  用于绑定热键
+            uploader.js   与上传文件有关，如不需要此功能，可不导入此文件
+    使用：
+        前提：
+            需要一个文本域  <textarea id="editor"></textarea>
+        初始化：
+            var editor = new Simditor({
+                textarea:$('#editor')
+            })
+ -->
+<script>
+    var editor = new Simditor({
+        textarea:$('#content'),
+        toolbar:[
+            'title',
+            'bold',
+            'italic',
+            'underline',
+            'strikethrough',
+            'fontScale',
+            'color',
+            'ol'    ,         // ordered list
+            'ul'     ,        // unordered list
+            'blockquote',
+            'code'       ,    // code block
+            'table',
+            'link',
+            'image',
+            'hr'    ,         //  horizontal ruler
+            'indent',
+            'outdent',
+            'alignment'
+        ],
+        upload:{
+            url:'/upload/upload',    //  上传路径
+            params:'400x400',    //  额外的参数
+            fileKey:'image',       //  上传文件的图片名
+            connectionCount:3,      //  同时上传的图片数
+            leaveConfirm:'Uploading is in progress, are you sure to leave this page?'
+        }
+    })
+</script>

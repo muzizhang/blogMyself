@@ -5,6 +5,30 @@ use PDO;
 
 class MockController
 {
+    public function user()
+    {
+        //   连接数据库
+        $pdo = new PDO("mysql:host=127.0.0.1;dbname=blog",'root','123456');
+        //  设置编码
+        $pdo->exec("SET NAMES utf8");
+
+        //  清空数据
+        $pdo->exec("TRUNCATE blog");
+
+        for($i=0;$i<20;$i++)
+        {
+            //  生成随机的email
+            $email = rand(50000,99999999999).'@126.com';
+            $password = md5(123);
+            $stmt = $pdo->prepare("INSERT INTO user(email,password) VALUES(?,?)");
+            $stmt->execute([
+                $email,
+                $password
+            ]);
+        }
+        echo '用户人员';
+    }
+    
     public function index()
     {
         //   连接数据库
@@ -15,7 +39,7 @@ class MockController
         //  清空数据
         $pdo->exec("TRUNCATE blog");
 
-        for($i=0;$i<100;$i++){
+        for($i=0;$i<300;$i++){
             //   在循环之前进行清空
             // $data = [];
             // //   插入数据
@@ -43,7 +67,8 @@ class MockController
             $is_show = rand(0,1);
             $date = rand(1233333399,1535592288);
             $date = date('Y-m-d H:i:s', $date);
-            $pdo->exec("INSERT INTO blog(title,content,display,is_show,created_at) VALUES('$title','$content',$display,$is_show,'$date')");
+            $user_id = rand(1,20);
+            $pdo->exec("INSERT INTO blog(title,content,display,is_show,created_at,user_id) VALUES('$title','$content',$display,$is_show,'$date',$user_id)");
         }
     }
 

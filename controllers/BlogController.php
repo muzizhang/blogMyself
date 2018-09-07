@@ -5,6 +5,26 @@ use models\Blog;
 
 class BlogController
 {
+    //   发表日志
+    public function create()
+    {
+        view('blogs.add');
+    }
+
+    //   接收日志信息
+    public function add()
+    {
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+        $is_show = $_POST['is_show'];
+        $blog = new Blog;
+        $blog->addBlog($title,$content,$is_show);
+
+    
+
+        message('发表成功！',2,'/blog/index');
+    }
+
     public function index()
     {
         //  实例化对象
