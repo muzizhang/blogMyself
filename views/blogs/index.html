@@ -53,7 +53,8 @@
         <tr>
             <td><?=$v['id']?></td>
             <!-- 修改访问路径 -->
-            <td width="40%"> <a href="/contents/<?=$v['id']?>.html"><?=htmlspecialchars($v['title'])?></a></td>
+            <!-- 修改宽度     换行 -->
+            <td style="word-break:break-all;"> <a href="/contents/<?=$v['id']?>.html"><?=htmlspecialchars($v['title'])?></a></td>
             <td><?=$v['created_at']?></td>
             <td><?=$v['updated_at']?></td>
             <td><?=$v['is_show']?></td>

