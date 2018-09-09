@@ -34,9 +34,10 @@ class Blog extends Base
     //   删除日志
     public function delete($id)
     {
-        $stmt = self::$pdo->prepare("DELETE FROM blog WHERE id = ?");
+        $stmt = self::$pdo->prepare("DELETE FROM blog WHERE id = ? AND user_id = ?");
         $ret = $stmt->execute([
-                $id
+                $id,
+                $_SESSION['id']
             ]);
         if($ret)
         {
