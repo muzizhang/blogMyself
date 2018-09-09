@@ -177,3 +177,42 @@ function message($message,$type,$url,$seconds=5)
         redirect($url);
     }
 }
+
+//  封装预防XSS攻击
+function e($content)
+{
+    return htmlspecialchars($content);
+}
+
+//  因XSS，可以处理html代码和客户端脚本
+//     而，编辑器中   主要是使用HTML标签来进行美化   HTMLPurifier
+function hp($content)
+{
+    //  一直保存在内存中（直到脚本执行结束，在进行删除）
+    static $purifier = null;
+    if($purifier === null)
+    {
+        $config = \HTMLPurifier_Config::createDefault();    //  创建默认配置
+        //  设置一些常用设置
+
+        //  设置编码
+        $config->set('Core.Encoding','UTF-8');
+        //  html文档类型
+        $config->set('HTML.Doctype', 'HTML 4.01 Transitional');
+        //  设置缓存目录
+        // $config->set('Cache.SerializerPath', ROOT.'/vendor/cache');
+        //  设置允许的  HTML标签
+        $config->set('HTML.Allowed', 'div,b,strong,i,em,a[href|title],ul,ol,ol[start],li,p[style],br,span[style],img[width|height|alt|src],*[style|class],pre,hr,code,h2,h3,h4,h5,h6,blockquote,del,table,thead,tbody,tr,th,td');
+        //  设置允许的  CSS
+        $config->set('CSS.AllowedProperties', 'font,font-size,font-weight,font-style,margin,width,height,font-family,text-decoration,padding-left,color,background-color,text-align');
+        //   设置是否自动添加  p标签
+        $config->set('AutoFormat.AutoParagraph', TRUE);
+        //   设置是否删除空标签
+        $config->set('AutoFormat.RemoveEmpty', TRUE);
+        //  过滤
+        //  实例化，并传入默认配置  ($config为空也可以)
+        $purifier = new \HTMLPurifier($config);
+    }
+    //  开始过滤  返回过滤后的字符串
+    return $purifier->purify($content);
+}

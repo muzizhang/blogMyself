@@ -3,6 +3,51 @@ namespace models;
 
 class Blog extends Base
 {
+    //  编辑日志
+    public function edit($id)
+    {
+        $stmt = self::$pdo->prepare("SELECT * FROM blog WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    //  修改日志
+    public function doedit($data)
+    {
+        $stmt = self::$pdo->prepare("UPDATE blog SET title = ?,content = ?,is_show = ? WHERE id = ?");
+        $ret = $stmt->execute([
+            $data['title'],
+            $data['content'],
+            $data['is_show'],
+            $data['id']
+            ]);
+        if($ret)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    //   删除日志
+    public function delete($id)
+    {
+        $stmt = self::$pdo->prepare("DELETE FROM blog WHERE id = ?");
+        $ret = $stmt->execute([
+                $id
+            ]);
+        if($ret)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
     //  发表日志
     public function addBlog($title,$content,$is_show)
     {
@@ -79,7 +124,15 @@ class Blog extends Base
 
         // ====================================
         //  搜索
-        $where = 1;
+        if(isset($_SESSION['id']))
+        {
+            $where = "user_id = ".$_SESSION['id'];
+        }
+        else
+        {
+            $where = 1;
+        }
+
         //  获取地址栏信息
         if(isset($_GET['keyword']) && $_GET['keyword'])
         {

@@ -12,7 +12,7 @@ class UserController
         $_SESSION = [];
         // back();
         //  跳回首页
-        // redirect('/');
+        redirect('/');
     }
     //  链接登录
     public function login()

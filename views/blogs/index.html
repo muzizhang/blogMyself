@@ -53,14 +53,14 @@
         <tr>
             <td><?=$v['id']?></td>
             <!-- 修改访问路径 -->
-            <td width="40%"> <a href="/contents/<?=$v['id']?>.html"><?=$v['title']?></a></td>
+            <td width="40%"> <a href="/contents/<?=$v['id']?>.html"><?=htmlspecialchars($v['title'])?></a></td>
             <td><?=$v['created_at']?></td>
             <td><?=$v['updated_at']?></td>
             <td><?=$v['is_show']?></td>
             <td><?=$v['display']?></td>
             <td>
-                <a href="">删除</a>
-                <a href="">编辑</a>
+                <a href="/blog/edit?id=<?=$v['id']?>">编辑</a>
+                <a onclick="return confirm('确定要删除吗？');" href="/blog/del?id=<?=$v['id']?>">删除</a>
             </td>
         </tr>
         <?php endforeach; ?>

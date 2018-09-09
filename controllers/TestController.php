@@ -3,6 +3,24 @@ namespace controllers;
 
 class TestController
 {
+    //  测试HTMLpurifier
+    public function htmlpurifier()
+    {
+        $config = \HTMLPurifier_Config::createDefault();    //  创建默认配置
+        //  设置一些常用设置
+        $config->set('Core.Encoding','UTF-8');
+        $config->set('HTML.Doctype', 'HTML 4.01 Transitional');
+        // $config->set('Cache.SerializerPath', ROOT.'/vendor/cache');
+        $config->set('HTML.Allowed', 'div,b,strong,i,em,a[href|title],ul,ol,ol[start],li,p[style],br,span[style],img[width|height|alt|src],*[style|class],pre,hr,code,h2,h3,h4,h5,h6,blockquote,del,table,thead,tbody,tr,th,td');
+        $config->set('CSS.AllowedProperties', 'font,font-size,font-weight,font-style,margin,width,height,font-family,text-decoration,padding-left,color,background-color,text-align');
+        $config->set('AutoFormat.AutoParagraph', TRUE);
+        $config->set('AutoFormat.RemoveEmpty', TRUE);
+        //  实例化，并传入默认配置  ($config为空也可以)
+        $purifier = new \HTMLPurifier($config);
+        //  开始过滤  返回过滤后的字符串
+        echo $purifier->purify("<h1>过滤 HTMLPurifier</h1><span style='color:red;font-size:24px;'>过滤成功</span>");
+    }
+
     public function info()
     {
         message('测试情况',2,'/');
