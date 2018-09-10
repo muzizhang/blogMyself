@@ -3,6 +3,44 @@ namespace models;
 
 class Blog extends Base
 {
+    //  为某一个日志生成静态页
+    public function makeOne($id)
+    {
+        $blog = $this->find($id);
+        //  缓冲区
+        ob_clean();
+        view('blogs.content',[
+            'blogs'=>$blog
+        ]);
+        // echo "<pre>";
+        // var_dump($blog);
+        // 从缓冲区获取数据
+        $str = ob_get_clean();
+        file_put_contents(ROOT.'/public/contents/'.$id.'.html',$str); 
+    }
+
+    // 删除静态页
+    public function deleteOne($id)
+    {
+        // @ 防止 报错：有这个文件就删除，没有就不删除，不用报错
+        @unlink(ROOT.'/public/contents/'.$id.'.html');
+    }
+
+    //   查询私有日志
+    public function find($id)
+    {
+        $stmt = self::$pdo->prepare("SELECT * FROM blog WHERE id = ?");
+        $stmt->execute([
+            $id
+        ]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    //  获取20条数据，首页
+    public function getNew()
+    {
+        $stmt = self::$pdo->query("SELECT * FROM blog WHERE is_show = 1 ORDER BY created_at desc LIMIT 20");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     //  编辑日志
     public function edit($id)
     {
@@ -266,16 +304,13 @@ class Blog extends Base
     }
 
     //  浏览量
-    public function content_2_display()
+    public function content_2_display($id)
     {
         //  判断内存中是否有该  日志id，如若没有则访问数据库，+1  并将其加入到内存中，
         //  如若存在，则内存中的数据 +1
 
         //  连接redis  服务器
         $redis = \libs\Redis::instance();
-
-        //  获取地址栏上的id
-        $id = $_GET['id'];
 
         //  拼接  redis 中的key值
         $key = 'blog-'.$id;
@@ -291,8 +326,7 @@ class Blog extends Base
         {
             //  连接数据库进行查询
             $stmt = self::$pdo->prepare("SELECT display FROM blog WHERE id = ?");
-            $data[] = $id;
-            $stmt->execute($data);
+            $stmt->execute([$id]);
             $num = $stmt->fetch(\PDO::FETCH_COLUMN);
             // echo $num;
             // die;
@@ -301,7 +335,7 @@ class Blog extends Base
             $redis->hset('display',$key,$num);
             
         }
-        echo  $num;
+        return $num;
     }
 
     //  取出redis中的所有数据

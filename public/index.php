@@ -238,5 +238,5 @@ function csrf()
         //   将token数据保存到
         $_SESSION['token'] = $token;
     }
-    return "<input type='hidden' name='token' value='".$_SESSION['token']."'";
+    return "<input type='hidden' name='token' value='".$_SESSION['token']."'></input>";
 }

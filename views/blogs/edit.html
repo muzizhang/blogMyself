@@ -8,6 +8,7 @@
     <?php view('common.nav') ?>
     <h1>编辑日志</h1>
     <form action="/blog/doedit" method="POST" enctype="multipart/form-data">
+        <?=csrf();?>
         <input type="hidden" name="id" value="<?=$data['id']?>">
         <div>
             标题：

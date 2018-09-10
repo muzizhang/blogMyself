@@ -5,6 +5,29 @@ use models\Blog;
 
 class BlogController
 {
+    // //  将浏览量从redis中获取出来
+    // public function getRedis()
+    // {
+
+    // }
+
+    //  显示私有日志
+    public function privateContent()
+    {
+        //  接收id
+        $id = $_GET['id'];
+        $blog = new Blog;
+        $blogs = $blog->find($id);
+        //  判断日志是否是我的日志
+        if($_SESSION['id'] != $blogs['user_id'])
+        {
+            die('无权访问');
+        }
+        view('blogs.content',[
+            'blogs'=>$blogs
+        ]);
+    }
+
     //  编辑日志
     public function edit()
     {
@@ -28,31 +51,29 @@ class BlogController
         // var_dump($data);
         $blog = new Blog;
         $ret = $blog->doedit($data);
-        if($ret)
+        //  如果日志是公开的就生成静态页
+        if($data['is_show'] == 1)
         {
-            message('修改成功',1,'/blog/index');
+            $blog->makeOne($data['id']);
         }
         else
         {
-            message('修改失败',0,'/blog/edit');
+            $blog->deleteOne($data['id']);
         }
+
+        message('修改成功',2,'/blog/index');
     }
 
     //  删除日志
     public function del()
     {
         //  获取id
-        $id = $_GET['id'];
+        $id = $_POST['id'];
         $del = new Blog;
         $ret = $del->delete($id);
-        if($ret)
-        {
-            message('删除成功',0,'/blog/index');
-        }
-        else
-        {
-            message('删除失败',0,'/blog/index');
-        }
+        //  静态页删除
+        $del->deleteOne($id);
+        message('删除成功',0,'/blog/index');   
     }
     
     //   发表日志
@@ -68,8 +89,13 @@ class BlogController
         $content = $_POST['content'];
         $is_show = $_POST['is_show'];
         $blog = new Blog;
-        $blog->addBlog($title,$content,$is_show);
-        message('发表成功！',2,'/blog/index');
+        //  返回新的id
+        $id = $blog->addBlog($title,$content,$is_show);
+        if($is_show == 1)
+        {
+            $blog->makeOne($id);
+        }
+        message('发表成功！',1,'/blog/index');
     }
 
     public function index()
@@ -107,6 +133,21 @@ class BlogController
     {
         $display = new Blog;
         $display->content_2_display();
+    }
+
+    public function display()
+    {
+        // 接收日志ID
+        $id = (int)$_GET['id'];
+        $blog = new Blog;
+        // 把浏览量+1，并输出（如果内存中没有就查询数据库，如果内存中有直接操作内存）
+        $display =  $blog->content_2_display($id);
+        // 返回多个数据时必须要用 JSON
+        echo json_encode([
+            'display' => $display,
+            'email' => isset($_SESSION['email']) ? $_SESSION['email'] : ''
+        ]);
+        
     }
 
     //   更新浏览量
