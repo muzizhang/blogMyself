@@ -6,6 +6,13 @@ use models\Order;
 
 class UserController
 {
+    //  获取余额
+    public function money()
+    {
+        $money = new User;
+        echo $money->money();
+    }
+
     //   充值
     public function pay()
     {

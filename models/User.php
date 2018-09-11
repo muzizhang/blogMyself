@@ -3,6 +3,15 @@ namespace models;
 
 class User extends Base
 {  
+    //  获取余额
+    public function money()
+    {
+        $stmt= self::$pdo->prepare("SELECT money FROM user WHERE id = ?");
+        $stmt->execute([
+            $_SESSION['id']
+        ]);
+        return $stmt->fetch(\PDO::FETCH_COLUMN);
+    }
     //   修改用户充值金额
     public function modifyMoney($money,$id)
     {
