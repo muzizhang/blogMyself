@@ -2,9 +2,40 @@
 namespace controllers;
 //  引入user模型
 use models\User;
+use models\Order;
 
 class UserController
 {
+    //   充值
+    public function pay()
+    {
+        view('users.pay');
+    }
+    //  充值表单
+    public function dopay()
+    {
+        //  获取订单数
+        $ordernum = new \libs\SnowFlake(1023);
+        $order = $ordernum->nextId();
+        //  接收充值金额
+        $money = $_POST['money'];
+        $pay = new \models\Order;
+        $pay->create($money,$order);
+        message('订单已生成',2,'/user/order');
+    }
+
+    //  生成订单列表
+    public function order()
+    {
+        $order = new Order;
+        $data = $order->getOrder();
+        // echo '<pre>';
+        // var_dump($data);
+        view('users.order',[
+            'data'=>$data
+        ]);
+    }
+
     //  退出
     public function logout()
     {

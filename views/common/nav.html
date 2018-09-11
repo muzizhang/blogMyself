@@ -21,9 +21,13 @@
 <!-- 判断用户是否登录成功 -->
 <?php if(@isset($_SESSION['id'])): ?>
 
+    <a href="/user/pay">充值</a>
+    <a href="/user/order">充值列表</a>
     <a href="/blog/index">日志列表</a>
     <a href="/blog/create">发表日志</a>
     <?= $_SESSION['email'] ?>
+    <a href="">用户余额：</a>
+    （<span style="color:red;font-weight: blod;"><?=$_SESSION['money']?></span> 元 ）
     <a href="/user/logout">退出</a>
 
 <?php else: ?>

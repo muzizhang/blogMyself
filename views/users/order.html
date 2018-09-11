@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <?php view('common.nav') ?>
+    <h1>订单页面</h1>
+    <table border="1" width="100%">
+        <tr>
+            <td>ID</td>
+            <td>订单编号</td>
+            <td>总金额</td>
+            <td>下单时间</td>
+            <td>订单状态</td>
+            <td>支付时间</td>
+            <td>操作</td>
+        </tr>
+        <?php foreach($data as $v): ?>
+        <tr>
+            <td><?=@$v['id']?></td>
+            <td><?=@$v['sn']?></td>
+            <td><?=@$v['money']?></td>
+            <td><?=@$v['created_at']?></td>
+            <td>
+                <?=@$v['status']==0 ? '未支付' : (@$v['status']==1 ? '已支付': '已退款') ?>
+            </td>
+            <td><?=@$v['pay_time']?></td>
+            <td>
+                <?php if(@$v['status'] == 0):?>
+                    <form target="_blank" action="/alipay/pay" method="post">
+                        <?=csrf();?>
+                        <input type="hidden" name="sn" value="<?=$v['sn']?>">
+                        <input type="submit" value="点击支付">
+                    </form>
+                <?php endif;?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+    <?php view('common.footer') ?>
+</body>
+</html>

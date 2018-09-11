@@ -12,13 +12,13 @@ session_start();
 require(ROOT.'/vendor/autoload.php');
 
 //  所有的以post方式进行提交的，全部添加验证token
-// if($_SERVER['REQUEST_METHOD'] == 'post' )
-// {
-//     if(!isset($_SESSION['token']))
-//         die('违法操作！');
-//     if($_POST['token'] == $_SESSION['token'])
-//         die('违法操作');
-// }
+if($_SERVER['REQUEST_METHOD'] == 'post' )
+{
+    if(!isset($_SESSION['token']))
+        die('违法操作！');
+    if($_POST['token'] == $_SESSION['token'])
+        die('违法操作');
+}
 
 // $_c = new controllers\UserController;
 /* Fatal error: 

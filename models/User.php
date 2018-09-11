@@ -3,6 +3,17 @@ namespace models;
 
 class User extends Base
 {  
+    //   修改用户充值金额
+    public function modifyMoney($money,$id)
+    {
+        $stmt = self::$pdo->prepare("UPDATE user SET money = money+? WHERE id = ?");
+        $stmt->execute([
+            $money,
+            $id
+        ]);
+        return $_SESSION['money']+=$money;
+    }
+
     //  判断输入数据是否正确
     public function login($email,$password)
     {
@@ -22,6 +33,7 @@ class User extends Base
             $_SESSION['id'] = $user['id'];
             $email = explode('@',$user['email']);
             $_SESSION['email'] = $email['0'];
+            $_SESSION['money'] = $user['money'];
             return TRUE;
         }
         else
