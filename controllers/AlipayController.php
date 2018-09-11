@@ -10,12 +10,17 @@ class AlipayController
         //  支付宝公钥
         'ali_public_key'=>'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAta9gZo39lx9eAfNryTlyZAjaqntFjOx3eVoSTHwmyKqiKNKa08WAQmjVvKJpye1Bok8Xer9py6MMKaVAPSb7roDbK7biH1CjnmUa3UtaQlyqnEzI6ASHPWrSsg+0uUO/Q5iYeQMn91yrv6TEtB3dfHvyVAM31MRnvjlfL/M31OMKqm4nb24tAJSyL9yf9nXSwq3uOmZBoEND9pi5WdM/QkAb8EqvgzbfVkLx9CjPBIJd2YJShTG0T6TvWB5SpM5XgiUYRDZW3fmb2mdBDWy7Sz+L1P0foqnQMEoAz+dCN3tTy8IfQEhsaMqgvRMj0yHnn6XvEuIXIVLPbDE4EnAxOQIDAQAB',
         //  商店应用密钥
-        'private_key'=>'MIIEpAIBAAKCAQEAtjK4ZZkzu3DJ+jggXifkBJytFwdrgFRMs2LIwRHo/Qt3lHsi9gc6dXj0x5+lGjXkuyrKBJM1pVtE5quHqng80k6rJma264Iml7onyvOb2LRpLg/u72qjnEeqg3UJZAQAZPxtLje+tE4GtMh5PbJIswpdnKtl1d85X5Ln1Jpdyc1IqAESAS+KSO+Wqt8TjWOgzV9RnxiXnaPCs4x2P1riPlyAL2oO9Il/04ua8mcH+EIzv953QVPtvzNmqQSIX5lFSUvtOsz9oBP17V5ytlTb1X4elCZYiDK7a+PNV361TSiWGFIILa1j+OWzg3ecYPxlrgkwAfDRyFcARhhXhmmjaQIDAQABAoIBACC/1S1N8GKMz4FOfWLvQKkjkGlHSCd0/6Ru6S7rDToOyZvC1nHqsrNS3ozTQVYIwehytIVGAKqMUUI1KtmVazlSMqlgZRjH+C/loil0yFqXcyB4dLZMMMRyjU+7xchYf8mnJejc1EaMj+AG+OQCG9cy0cjLdi6PRTzMpycr6BfRpM1TgudjsK3zRxd/nv3uk+OOns+rh2d10sKKW7g3ua3glFXxPCggumjGEBzPrHoAhu8Yi6wUdwbqrw0yd67VFt+b2zykjcjFk00DAZ/J45y1D3/PDuAX+Ss6MY51InXg/lU0EKac98vANEsV7a4jWLSZfLpwwYU6A17RNhMqwUECgYEA2WYv04wVN77Y0tH/AMr5Evf4+0QlTGDiP0BFfUEdMevdojIFBKKiMzODlcYZylGmULOzWqgB7RruVxFaZAOoN4e+NFe5+pHkgrKhi1TkpPREuccu47yMZJ+58VT1APQJYA0YVKpNfef8THHv3HEFzf0O6pWmTfxtIOuR8F1d+1UCgYEA1ox7GCWCHJvo7o4PIjLdmxZHmcLG+zMUkUOHryLZa7O3wZjJOLWW7HODsrQsWrwlH9FUhAdHrXdKlNqm/lgDW7bjoZRo7hPDOXQlgbPEzq9QQEW9VKak1XevMDpfnKN01GCJHLk78gvetap5N1+kYn5AZHUgGGYLllEfz0poT8UCgYEAqXgPMEmzAJG1VCJ/No8DOtYzMSweJzwfIk9n3Aw2RgQn8ZgscUCWUHOHz+ltkVm03JQ47CKr3blwsk7Et9Jh/2fBzevU/o9cIsY9R/AVjMEeEfRDiSQiDQ62VHp1wxh5dna+0MExR0TgWHc5FA7HB5yNVDD0QzbTmyYHzef6q0ECgYEAht+TNm/F5pRAj07wxo/xbeBIrKmciyfmYxdvwbKHucQl3Wdd/+9v7D8F6J6JT5T9RY5DsigdcDgQw5jc6AGOQuarHNV+TURRMtoIBgxryX6+VVlCF2gXMTbnA8t+darv896n802jGJtLqyp6v0u5vE0fz8ctoQjtedaPx7E/9/0CgYAPxM5h97K6ZxqQ6rmMe+0DXlxXolBsNfuym43rFKuu0fllTIZKVOETnxQL/EqWtlJIYCWikjls8u9K5q5I5vlOVzIy4j+iqf/nKzkb/7fGl/uoehEu/OhVM6E3FPV7ATunSKNFdtpMTkeB7RjKqSBKi3I4wo9AoP/q1RqLoml4eQ==',
+        'private_key'=>'MIIEpQIBAAKCAQEAvSb31X1CLLyZp5QHCOA6zKSbup5fj29+EI182p/iDxu/1rotI+OJl/Z/54x8xmaM9Hv1PY7+lhhE6D5c0bd7jG7wwcqJmcgH9duk4p6xkbtKqXqgl6TRtT1pCXecqt+CIwVb80FDgY2fHihoiVpOj16ctrPm2J+iaMBQKg4WAH8RxWYUzs/g3BrYaiINHPmlm1OYU+P3THEQ9BX02Ter8Dc7Cm/mVBfXrSw72T83DtsNs2Gl9RFRRRAg71t7oK1P7zB4lh3KfpUdbh0ldtjkMHefS6QpzQqqoJjvU8HoxTxYGTlej9co7EGt0dyFH8yNpm6sgIeG3aY8nbrBP6BDdwIDAQABAoIBAQCA21kegRRhsaHjfX5FV6v22XSVb2qeJk/1Ks4RibXQoRDRUUeLGWkUswJzVUtzRU1lCEULSKy6x5G5vTIyVBLAmps9CaMvtgtmO9lZ4M4K/1JfnoBkjg2msE0r++YoqdbX0MDROHaqfTYWr2R3naPDG6sa8/ehPy6+ubRi0fG/J6RPVGN8Y/HbHkk0jAlMSXTMcAPYSzLkkVpCQAIfijfLZ5bXpwypxfG5kzCF436ynsCC7WRA6oYiHB6x3tGqZUd7t2zueiuzwatM80WXJ4mJehXM9KIDu7I9YmrSTjH/YcKBwk/B7vjJdJSn9blunYUd9C/fhcCzIzJgCHXn+dYhAoGBAPKTqm7y5d92keW31POH2kh1IQMV2q9ByssunncfigOxKJFNRQIh9ADOLmAZ9Ag6Y45K4xQN6XGGvmLEsaitN9cgkXDMmdbs7ols4HEv1qq0HU3kkMurmmKqkE6OhldytF1x5xj9PaTYJoAG05XXbHS880pUkA1OaNqMJuNkwMApAoGBAMeefc7LmTBox5Koo1Qi38GTNSliU5NjPQO6vh7OrJ4QnY2FQv7MAKiN+ftNDKf0SDtKRtz1jhrqJgWxTObLjmpc+ssoDR57i0RMebAZv+DVFTRcFjqoc/N1bYigTMeFxYRaQHQKIFo6uPdixvZ7kCNllMNdWZrtIPrK1pZ21tqfAoGABy4/2VDvZRIJd5ddgmf/Gi39cC3xb0avThxvLG+OklVoMgTrigifRHbWAJpEEwpHcCrfVfSjeGzYrevMpoWaJZAdPg2QcEBLP14ttqwH2r3CMFAXyS+nPkx2QR0O9P+8PxfkE2VLsdmEKj4JfWIHH92IBidCrGIp0G5dqFWPLyECgYEAnCBwEZ/YLq6k+SYAqLul+kbim32WFH7Xp+UU8g9/nxkrwRZrcdGo6iwxSsXWkj5TiFvt1MAR5ycfmfA0T4cB2lripKasrBzAriiKPJvHIVhHf25OzI4YMmCzzNpjcuJDu+LC6n9JEok/Re3x47J859J5advHS48P7ldbQs+r980CgYEA3Q9V4YX9Pk5GCqLYVOTvD5B9mNjbIuTmuXHspc6jFgEJBSuNBIgqEvOXSNPqoxXOViimshby3nJ87dXWLreERUj3EqB2h0b060Vjp8q9eWMGRgwEWlRmfwxFTXgX2QLZDu2+ODg/XAOklj3Luw/cXPmlN9gOp8yfQrlPLc4Rreo=',
         //   通知地址
-        'notify_url'=>'http://aw95iv.natappfree.cc/alipay/notify',
+        'notify_url'=>'http://e0507054.ngrok.io/alipay/notify',
         //  返回地址
         'return_url'=>'http://localhost:9999/alipay/return',
-
+        'log' => [ // optional
+            'file' => './logs/alipay.log',
+            'level' => 'debug',
+            'type' => 'single', // optional, 可选 daily.
+            'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
+        ],
         //    沙箱模式(可选)
         'mode'=>'dev'
         ];
@@ -85,7 +90,7 @@ class AlipayController
                     //  根据订单号，更新订单状态
                     $ret1 = $order->setPaid($data->out_trade_no);
                     //  修改金额
-                    $user = new User;
+                    $user = new \models\User;
                     $ret2 = $user->modifyMoney($data->total_amount,$orderInfo['user_id']);
                     // ob_start();
                     // var_dump($ret1,$ret2);
