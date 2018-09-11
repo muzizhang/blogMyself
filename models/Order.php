@@ -7,7 +7,7 @@ class Order extends Base
     public function setPaid($sn)
     {
         $stmt = self::$pdo->prepare("UPDATE `order` SET status = 1,pay_time = now() WHERE sn = ?");
-        $stmt->execute([$sn]);
+        return $stmt->execute([$sn]);
     }
 
     //  获取一条数据

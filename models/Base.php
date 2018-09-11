@@ -3,6 +3,23 @@ namespace models;
 
 class Base
 {
+    //  开启事务
+    public function startTrans()
+    {
+        self::$pdo->exec("start transaction");
+    }
+    //     事务提交  commit
+    public function commitTrans()
+    {
+        self::$pdo->exec('commit');
+    }
+
+    //     事务回滚
+    public function rollbackTrans()
+    {
+        self::$pdo->exec('rollback');
+    }
+
     /* 
         每次实例化一个对象都会连接一次数据库，
         如果一个有多个模型，就需要连接多次数据库，

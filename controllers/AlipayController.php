@@ -77,18 +77,32 @@ class AlipayController
                 //  获取订单信息
                 if($orderInfo['status'] == 0)
                 {
+                    //  处理事务
+                    //  开启事务
+                    $order->startTrans();
                     //  根据订单号，更新订单状态
-                    $order->setPaid($data->out_trade_no);
+                    $ret1 = $order->setPaid($data->out_trade_no);
                     //  修改金额
                     $user = new User;
-                    $user->modifyMoney($data->total_amount,$orderInfo['user_id']);
+                    $ret2 = $user->modifyMoney($data->total_amount,$orderInfo['user_id']);
+                    //   判断数据是否执行成功
+                    if($ret1 && $ret2)
+                    {
+                        // 成功，则commit
+                        $order->commitTrans();
+                    }
+                    else
+                    {
+                        //   失败，则rollback
+                        $order->rollbackTrans();
+                    }
                 }
             }
-            echo '订单ID：'.$data->out_trade_no ."\r\n";
-            echo '支付总金额：'.$data->total_amount ."\r\n";
-            echo '支付状态：'.$data->trade_status ."\r\n";
-            echo '商户ID：'.$data->seller_id ."\r\n";
-            echo 'app_id：'.$data->app_id ."\r\n";
+            // echo '订单ID：'.$data->out_trade_no ."\r\n";
+            // echo '支付总金额：'.$data->total_amount ."\r\n";
+            // echo '支付状态：'.$data->trade_status ."\r\n";
+            // echo '商户ID：'.$data->seller_id ."\r\n";
+            // echo 'app_id：'.$data->app_id ."\r\n";
         }
         catch(\Exception $e)
         {

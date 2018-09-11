@@ -7,11 +7,11 @@ class User extends Base
     public function modifyMoney($money,$id)
     {
         $stmt = self::$pdo->prepare("UPDATE user SET money = money+? WHERE id = ?");
-        $stmt->execute([
+        return $stmt->execute([
             $money,
             $id
         ]);
-        return $_SESSION['money']+=$money;
+        // return $_SESSION['money']+=$money;
     }
 
     //  判断输入数据是否正确
