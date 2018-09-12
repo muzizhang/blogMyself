@@ -12,15 +12,15 @@ class AlipayController
         //  商店应用密钥
         'private_key'=>'MIIEpQIBAAKCAQEAvSb31X1CLLyZp5QHCOA6zKSbup5fj29+EI182p/iDxu/1rotI+OJl/Z/54x8xmaM9Hv1PY7+lhhE6D5c0bd7jG7wwcqJmcgH9duk4p6xkbtKqXqgl6TRtT1pCXecqt+CIwVb80FDgY2fHihoiVpOj16ctrPm2J+iaMBQKg4WAH8RxWYUzs/g3BrYaiINHPmlm1OYU+P3THEQ9BX02Ter8Dc7Cm/mVBfXrSw72T83DtsNs2Gl9RFRRRAg71t7oK1P7zB4lh3KfpUdbh0ldtjkMHefS6QpzQqqoJjvU8HoxTxYGTlej9co7EGt0dyFH8yNpm6sgIeG3aY8nbrBP6BDdwIDAQABAoIBAQCA21kegRRhsaHjfX5FV6v22XSVb2qeJk/1Ks4RibXQoRDRUUeLGWkUswJzVUtzRU1lCEULSKy6x5G5vTIyVBLAmps9CaMvtgtmO9lZ4M4K/1JfnoBkjg2msE0r++YoqdbX0MDROHaqfTYWr2R3naPDG6sa8/ehPy6+ubRi0fG/J6RPVGN8Y/HbHkk0jAlMSXTMcAPYSzLkkVpCQAIfijfLZ5bXpwypxfG5kzCF436ynsCC7WRA6oYiHB6x3tGqZUd7t2zueiuzwatM80WXJ4mJehXM9KIDu7I9YmrSTjH/YcKBwk/B7vjJdJSn9blunYUd9C/fhcCzIzJgCHXn+dYhAoGBAPKTqm7y5d92keW31POH2kh1IQMV2q9ByssunncfigOxKJFNRQIh9ADOLmAZ9Ag6Y45K4xQN6XGGvmLEsaitN9cgkXDMmdbs7ols4HEv1qq0HU3kkMurmmKqkE6OhldytF1x5xj9PaTYJoAG05XXbHS880pUkA1OaNqMJuNkwMApAoGBAMeefc7LmTBox5Koo1Qi38GTNSliU5NjPQO6vh7OrJ4QnY2FQv7MAKiN+ftNDKf0SDtKRtz1jhrqJgWxTObLjmpc+ssoDR57i0RMebAZv+DVFTRcFjqoc/N1bYigTMeFxYRaQHQKIFo6uPdixvZ7kCNllMNdWZrtIPrK1pZ21tqfAoGABy4/2VDvZRIJd5ddgmf/Gi39cC3xb0avThxvLG+OklVoMgTrigifRHbWAJpEEwpHcCrfVfSjeGzYrevMpoWaJZAdPg2QcEBLP14ttqwH2r3CMFAXyS+nPkx2QR0O9P+8PxfkE2VLsdmEKj4JfWIHH92IBidCrGIp0G5dqFWPLyECgYEAnCBwEZ/YLq6k+SYAqLul+kbim32WFH7Xp+UU8g9/nxkrwRZrcdGo6iwxSsXWkj5TiFvt1MAR5ycfmfA0T4cB2lripKasrBzAriiKPJvHIVhHf25OzI4YMmCzzNpjcuJDu+LC6n9JEok/Re3x47J859J5advHS48P7ldbQs+r980CgYEA3Q9V4YX9Pk5GCqLYVOTvD5B9mNjbIuTmuXHspc6jFgEJBSuNBIgqEvOXSNPqoxXOViimshby3nJ87dXWLreERUj3EqB2h0b060Vjp8q9eWMGRgwEWlRmfwxFTXgX2QLZDu2+ODg/XAOklj3Luw/cXPmlN9gOp8yfQrlPLc4Rreo=',
         //   通知地址
-        'notify_url'=>'http://e0507054.ngrok.io/alipay/notify',
+        'notify_url'=>'http://9e29c12d.ngrok.io/alipay/notify',
         //  返回地址
         'return_url'=>'http://localhost:9999/alipay/return',
-        'log' => [ // optional
-            'file' => './logs/alipay.log',
-            'level' => 'debug',
-            'type' => 'single', // optional, 可选 daily.
-            'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
-        ],
+        // 'log' => [ // optional
+        //     'file' => './logs/alipay.log',
+        //     'level' => 'debug',
+        //     'type' => 'single', // optional, 可选 daily.
+        //     'max_file' => 30, // optional, 当 type 为 daily 时有效，默认 30 天
+        // ],
         //    沙箱模式(可选)
         'mode'=>'dev'
         ];
@@ -29,7 +29,7 @@ class AlipayController
     {
         //  接收订单ID
         $sn = $_POST['sn'];
-        //   根据订单编号取出订单编号
+        //   根据订单编号取出订单状态
         $order = new \models\Order;
         $data = $order->findOrder($sn);
         // echo '<pre>';

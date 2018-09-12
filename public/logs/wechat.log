@@ -1,0 +1,44 @@
+2018-09-12 03:35:53 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"PJTmwzcAroQn9KbW","notify_url":"http://9e29c12d.ngrok.io/wxpay/notify","sign":"C667A264546938333B1F934EAD6E786C","trade_type":"JSAPI","spbill_create_ip":"::1","out_trade_no":1536723353,"total_fee":"1","body":"test body"}] []
+
+2018-09-12 03:35:53 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"PJTmwzcAroQn9KbW","notify_url":"http://9e29c12d.ngrok.io/wxpay/notify","sign":"C667A264546938333B1F934EAD6E786C","trade_type":"JSAPI","spbill_create_ip":"::1","out_trade_no":1536723353,"total_fee":"1","body":"test body"}] []
+
+2018-09-12 15:08:09 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"kIkkOUshSq2E1xrP","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"3B6418B253B7C0F985FF03F0270B3241","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":"0.01","body":"test body"}] []
+
+2018-09-12 15:08:10 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"kIkkOUshSq2E1xrP","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"3B6418B253B7C0F985FF03F0270B3241","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":"0.01","body":"test body"}] []
+
+2018-09-12 15:11:00 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"BUTMAxzeK2eRUJTf","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"97BF52B9DF46692C91FF0812E50F005A","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":"0.01","body":"test body"}] []
+
+2018-09-12 15:11:00 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"BUTMAxzeK2eRUJTf","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"97BF52B9DF46692C91FF0812E50F005A","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":"0.01","body":"test body"}] []
+
+2018-09-12 15:12:27 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"YaoHgCEh0SSjLKpq","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"421480DED04F024CB3F45B7370713A2D","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:12:27 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"YaoHgCEh0SSjLKpq","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"421480DED04F024CB3F45B7370713A2D","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:13:02 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"rmacXIDaDGBPVEDO","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"398706ECB91E6EBC861D6512C4F47945","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:13:02 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"rmacXIDaDGBPVEDO","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"398706ECB91E6EBC861D6512C4F47945","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:14:21 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"uksSVKgOx4WhTxgR","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"0E90F1A3A9CB50C5C3931B7FC50F0AA9","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:14:21 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"uksSVKgOx4WhTxgR","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"0E90F1A3A9CB50C5C3931B7FC50F0AA9","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:16:50 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"dzAIyUaiYC69gDPa","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"B0659E46F976960BCB3C8164ED0FFC38","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:16:50 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"dzAIyUaiYC69gDPa","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"B0659E46F976960BCB3C8164ED0FFC38","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:19:10 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"n5or7cJ8x2QwxfBZ","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"9BBAA0E3A6B5FF4A08EBCB77D3C330BE","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:19:10 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"n5or7cJ8x2QwxfBZ","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"9BBAA0E3A6B5FF4A08EBCB77D3C330BE","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:44:59 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"zWTxe3AuOdnzRznS","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"44977BFB5B4C3AAD991B01B6DD1D4702","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:44:59 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"zWTxe3AuOdnzRznS","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"44977BFB5B4C3AAD991B01B6DD1D4702","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:50:05 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"NrzgPrxFrJT8vIYU","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"3CF6D4740B95E3D1F13457CC8ED37A41","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:50:05 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"NrzgPrxFrJT8vIYU","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"3CF6D4740B95E3D1F13457CC8ED37A41","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:50:28 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"mD6vAa2vllhV3B2E","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"503901F22E4E78DDDC1DB427CDFACEC2","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
+2018-09-12 15:50:28 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wx426b3015555a46be","mch_id":"1900009851","nonce_str":"mD6vAa2vllhV3B2E","notify_url":"http://e064f7ac.ngrok.io/wxpay/notify","sign":"503901F22E4E78DDDC1DB427CDFACEC2","trade_type":"NATIVE","spbill_create_ip":null,"out_trade_no":"259091947640057856","total_fee":1,"body":"test body"}] []
+
