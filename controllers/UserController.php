@@ -4,8 +4,63 @@ namespace controllers;
 use models\User;
 use models\Order;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class UserController
 {
+    //  导出excel
+    public function excel()
+    {
+        //  获取数据
+        $blog = new \models\Blog;
+        $data = $blog->getNew();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1','标题');
+        $sheet->setCellValue('B1','内容');
+        $sheet->setCellValue('C1','是否显示');
+        $sheet->setCellValue('D1','创建时间');
+        $i = 2;
+        foreach($data as $v)
+        {  
+            $sheet->setCellValue('A'.$i,$v['title']);
+            $sheet->setCellValue('B'.$i,$v['content']);
+            $sheet->setCellValue('C'.$i,$v['is_show']);
+            $sheet->setCellValue('D'.$i,$v['created_at']);
+            $i++;
+        }
+       
+        
+        $writer = new Xlsx($spreadsheet);
+        $writer->save(ROOT.'/public/uploads/excel/'.date('Ymd').'.xlsx');
+        $date = date('Ymd');
+
+        //  下载文件
+        $file = ROOT.'/public/uploads/'.$date.'.xlsx';
+        //  下载文件名
+        $fileName = '最新日志的20条数据'.$date.'.xlsx';
+        //  设置头部信息
+        //告诉浏览器这是一个文件流格式的文件   
+        Header ( "Content-type: application/octet-stream" ); 
+        //请求范围的度量单位  
+        Header ( "Accept-Ranges: bytes" );  
+        //Content-Length是指定包含于请求或响应中数据的字节长度    
+        Header ( "Accept-Length: " . filesize ( $file ) );  
+        //用来告诉浏览器，文件是可以当做附件被下载，下载后的文件名称为$file_name该变量的值。
+        Header ( "Content-Disposition: attachment; filename=" . $fileName );
+
+        //  读取并输出文件内容
+        readfile($file);
+    }
+    
+
+    //  大文件上传
+    public function bigfile()
+    {
+        view('users.bigfile');
+    }
+    
     //  处理相册
     public function doavatars()
     {

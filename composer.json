@@ -4,6 +4,8 @@
         "swiftmailer/swiftmailer": "^6.1",
         "ezyang/htmlpurifier": "^4.10",
         "yansongda/pay": "^2.4",
-        "endroid/qrcode": "^3.2"
+        "endroid/qrcode": "^3.2",
+        "phpoffice/phpexcel": "^1.8",
+        "phpoffice/phpspreadsheet": "^1.3"
     }
 }
