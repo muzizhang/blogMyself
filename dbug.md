@@ -19,3 +19,20 @@ redis类型：string类型
 
 注册时：把字符串放到redis中
 把激活码发到用户邮箱
+
+#  扩展
+## predis
+支持不同版本的redis
+predis客户端redis    
+
+## swiftmailer
+发送邮件
+
+## htmlpurifier
+防xss攻击
+
+## pay
+支付宝/微信支付
+
+## qrcode
+生成二维码图片

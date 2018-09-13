@@ -6,6 +6,78 @@ use models\Order;
 
 class UserController
 {
+    //  处理相册
+    public function doavatars()
+    {
+        // echo '<pre>';
+        // var_dump($_FILES);
+
+        //  获取文件根目录
+        $path = ROOT.'/public/uploads/';
+        //  获取当前年月日
+        $date = date('Ymd');
+        //  判断目录是否存在   
+        //   is_dir() 
+        if(!is_dir($path.$date))
+        {
+            mkdir($path.$date,0777,true);   //   0777 为权限  true  为递归创建目录
+        }
+
+        //  获取文件后缀
+        foreach($_FILES['file']['name'] as $k=>$v)
+        {
+            //  生成唯一的文件名
+            $name = md5(time().rand(1,99999));
+            //  获取文件名的后缀
+            $ext = strchr($v,'.');
+            //  拼接完整的文件名
+            $fullname = $path.$date.'/'.$name.$ext;
+            //  将文件移动到指定位置
+            move_uploaded_file($_FILES['file']['tmp_name'][$k],$fullname);
+        }
+    }
+    //  我的相册
+    public function avatars()
+    {
+        view('users.avatars');    
+    }
+    
+    //   处理头像
+    public function doavatar()
+    {
+        // echo '<pre>';
+        // var_dump($_FILES);
+
+        //  1、生成文件名
+        $path = ROOT.'/public/uploads/';
+        //   生成当前的时间
+        $date = date('Ymd');
+        if(!is_dir($path.$date))
+        {
+            mkdir($path.$date,0777,true);
+        }
+        //  生成一个随机的文件名
+        $name = md5(time().rand(1,99999));
+        //  获取文件的后缀
+        //  strchr()     某字符串中指定元素出现的最后位置截取到结尾
+        //  strstr()     查找字符串中，首次出现的指定元素
+        $ext = strchr($_FILES['file']['name'],'.');
+        //   拼接路径
+        $url = $path.$date.'/'.$name.$ext;
+        //  移动图片      将上传的文件移动到新的位置
+        /*
+         move_uploaded_file()
+         检查并确保由filename 指定的文件是合法的上传文件（通过 http post 上传机制所上传）
+         如果合法，则将其移动为由 destination 指定的文件
+         */   
+        move_uploaded_file($_FILES['file']['tmp_name'],$url);
+    }
+    //  上传头像
+    public function avatar()
+    {
+        view('users.avatar');
+    }
+    
     //  获取余额
     public function money()
     {

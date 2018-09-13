@@ -12,13 +12,13 @@ session_start();
 require(ROOT.'/vendor/autoload.php');
 
 //  所有的以post方式进行提交的，全部添加验证token
-// if($_SERVER['REQUEST_METHOD'] == 'post' )
-// {
-//     if(!isset($_SESSION['token']))
-//         die('违法操作！');
-//     if($_POST['token'] == $_SESSION['token'])
-//         die('违法操作');
-// }
+if($_SERVER['REQUEST_METHOD'] == 'post' )
+{
+    if(!isset($_SESSION['token']))
+        die('违法操作！');
+    if($_POST['token'] == $_SESSION['token'])
+        die('违法操作');
+}
 
 // $_c = new controllers\UserController;
 /* Fatal error: 
@@ -231,7 +231,7 @@ function hp($content)
 function csrf()
 {
     //  判断session  中是否存在  token
-    if($_SESSION['token']==null)
+    if(@$_SESSION['token']==null)
     {
         //  创建一个随机的token数据    //  毫秒时间戳
         $token = md5((rand(1,99999)).microtime());
