@@ -53,7 +53,46 @@ class UserController
         //  读取并输出文件内容
         readfile($file);
     }
-    
+    //ajax 实现
+    public function upload()
+    {
+        //  $_POST   是一个数组
+        //  接收数据
+        $count = $_POST['count'];
+        $size = $_POST['size'];
+        $i = $_POST['i'];
+        $name = 'big_img_'.$_POST['img_name'];     //  图片的唯一名字
+        //  获取临时路径   获取图片
+        $img = $_FILES['img0'];
+        //  保存每个分片
+        move_uploaded_file($img['tmp_name'],ROOT.'/public/tmp/'.$i);
+        //  将每个分片进行合并为一个图片
+        //  将图片分片总数保存到  redis 中
+        $redis = \libs\Redis::instance();
+        //  每次加1
+        $uploadCount = $redis->incr($name);
+        
+        if($uploadCount == $count)
+        {
+            //  以追加的方式创建并打开文件
+            $fp = fopen(ROOT.'/public/uploads/bigfile/'.$name.'.png','a');
+            //  循环所有分片
+            for($i=0;$i<$count;$i++)
+            { 
+                $a = file_get_contents(ROOT.'/public/tmp/'.$i);
+                fwrite($fp,$a);
+               
+               
+                //  并且删除
+                unlike(ROOT.'/public/tmp/'.$i);
+            }
+            //  关闭文件
+            fclose($fp);
+            //   从redis中删除相应变量
+            $redis->del($name);
+        }        
+        
+    }    
 
     //  大文件上传
     public function bigfile()
