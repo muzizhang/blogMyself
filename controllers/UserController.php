@@ -155,7 +155,7 @@ class UserController
         //  获取文件的后缀
         //  strchr()     某字符串中指定元素出现的最后位置截取到结尾
         //  strstr()     查找字符串中，首次出现的指定元素
-        $ext = strchr($_FILES['file']['name'],'.');
+        $ext = strrchr($_FILES['file']['name'],'.');
         //   拼接路径
         $url = $path.$date.'/'.$name.$ext;
         //  移动图片      将上传的文件移动到新的位置
