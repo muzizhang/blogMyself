@@ -5,6 +5,40 @@ use models\Blog;
 
 class BlogController
 {
+    //   添加点赞
+    public function agreement()
+    {
+        //  获取日志id
+        $blogId = $_GET['id'];
+        //  根据日志id，到blog_agree  表中查询该用户是否第一次点赞
+        //  判断用户是否登录
+        if(!isset($_SESSION['id']))
+        {   
+            echo json_encode([
+                'status_code'=>'403',
+                'message'=>'请登录后点赞该文章'
+            ]);
+            exit;
+        }
+        //  如果用户登录了，在判断用户是否已经点过赞
+        $blogAgree = new \models\Blog;
+        $agree = $blogAgree->agree($blogId);
+        if($agree)
+        {
+            echo json_encode([
+                'status_code'=>'200'
+            ]);
+            exit;
+        }
+        else
+        {
+            echo json_encode([
+                'status_code'=>'403',
+                'message'=>'该文章只允许点赞一次~'
+            ]);
+            exit;
+        }
+    }
     // //  将浏览量从redis中获取出来
     // public function getRedis()
     // {

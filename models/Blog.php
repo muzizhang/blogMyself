@@ -3,6 +3,40 @@ namespace models;
 
 class Blog extends Base
 {
+    //  点赞
+    public function agree($blogId)
+    {
+        //  判断用户是否赞过该文章
+        $stmt = self::$pdo->prepare("SELECT COUNT(*) FROM blog_agree WHERE blog_id = ? AND user_id = ?");
+        $stmt->execute([
+            $blogId,
+            $_SESSION['id']
+        ]);
+        $ret = $stmt->fetch(\PDO::FETCH_COLUMN);
+        if(!$ret)
+        {
+            //  点赞
+            $stmt = self::$pdo->prepare("INSERT INTO blog_agree(blog_id,user_id) VALUES(?,?)");
+            $ret1 = $stmt->execute([
+                    $blogId,
+                    $_SESSION['id']
+                ]);
+            
+            if($ret1)
+            {
+                //  更新日志表中的数据
+                $stmt = self::$pdo->prepare("UPDATE blog SET agree_count =agree_count + 1 WHERE id = ? ");
+                $stmt->execute([
+                    $blogId
+                ]);
+            }
+            return $ret1;
+        }
+        else
+        {
+            return False;
+        }
+    }
     //  为某一个日志生成静态页
     public function makeOne($id)
     {

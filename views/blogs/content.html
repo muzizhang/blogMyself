@@ -10,6 +10,7 @@
     <h1><?=$blogs['title']?></h1>
     <p>浏览量：<span id="display"></span></p>
     <p><?=$blogs['content']?></p>
+    <img id="praise" style="width:100px;cursor:pointer;border-radius: 50%;" src="/images/zan.jpg">
     <?php view('common.footer'); ?>
 </body>
 </html>
@@ -46,5 +47,23 @@
             }
             $('#menu').html(html);
         }
+    });
+    //  获取点赞状态
+    $('#praise').click(function(){
+        $.ajax({
+            type:'POST',
+            url:'/blog/agreement?id='+id,
+            dataType:'json',
+            success:function(data){
+                if(data['status_code']==200)
+                {
+                    alert('点赞成功~');
+                }
+                else
+                {
+                    alert(data.message);
+                }
+            }
+        });
     });
 </script>
