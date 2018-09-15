@@ -103,8 +103,6 @@ class UserController
     //  处理相册
     public function doavatars()
     {
-        // echo '<pre>';
-        // var_dump($_FILES);
 
         //  获取文件根目录
         $path = ROOT.'/public/uploads/';
@@ -116,6 +114,7 @@ class UserController
         {
             mkdir($path.$date,0777,true);   //   0777 为权限  true  为递归创建目录
         }
+        
 
         //  获取文件后缀
         foreach($_FILES['file']['name'] as $k=>$v)
@@ -129,6 +128,9 @@ class UserController
             //  将文件移动到指定位置
             move_uploaded_file($_FILES['file']['tmp_name'][$k],$fullname);
         }
+
+        
+        
     }
     //  我的相册
     public function avatars()
@@ -140,31 +142,41 @@ class UserController
     public function doavatar()
     {
         // echo '<pre>';
-        // var_dump($_FILES);
 
         //  1、生成文件名
-        $path = ROOT.'/public/uploads/';
-        //   生成当前的时间
-        $date = date('Ymd');
-        if(!is_dir($path.$date))
-        {
-            mkdir($path.$date,0777,true);
-        }
-        //  生成一个随机的文件名
-        $name = md5(time().rand(1,99999));
-        //  获取文件的后缀
-        //  strchr()     某字符串中指定元素出现的最后位置截取到结尾
-        //  strstr()     查找字符串中，首次出现的指定元素
-        $ext = strrchr($_FILES['file']['name'],'.');
-        //   拼接路径
-        $url = $path.$date.'/'.$name.$ext;
-        //  移动图片      将上传的文件移动到新的位置
-        /*
-         move_uploaded_file()
-         检查并确保由filename 指定的文件是合法的上传文件（通过 http post 上传机制所上传）
-         如果合法，则将其移动为由 destination 指定的文件
-         */   
-        move_uploaded_file($_FILES['file']['tmp_name'],$url);
+        // $path = ROOT.'/public/uploads/';
+        // //   生成当前的时间
+        // $date = date('Ymd');
+        // if(!is_dir($path.$date))
+        // {
+        //     mkdir($path.$date,0777,true);
+        // }
+        // //  生成一个随机的文件名
+        // $name = md5(time().rand(1,99999));
+        // //  获取文件的后缀
+        // //  strchr()     某字符串中指定元素出现的最后位置截取到结尾
+        // //  strstr()     查找字符串中，首次出现的指定元素
+        // $ext = strrchr($_FILES['file']['name'],'.');
+        // //   拼接路径
+        // $url = $path.$date.'/'.$name.$ext;
+        // //  移动图片      将上传的文件移动到新的位置
+        // /*
+        //  move_uploaded_file()
+        //  检查并确保由filename 指定的文件是合法的上传文件（通过 http post 上传机制所上传）
+        //  如果合法，则将其移动为由 destination 指定的文件
+        //  */   
+        // move_uploaded_file($_FILES['file']['tmp_name'],$url);
+        //  调用upload模型
+        $upload = \libs\Upload::make();
+        $url = $upload->upload('avatar','avatar');
+        //  将返回的图片路径保存到数据库中
+        $user = new \models\User;
+        $user->setAvatar('/uploads/'.$url);
+        //  删除原头像
+        @unlink(ROOT.'/public'.$_SESSION['avatar']);
+        //  设置新的头像session
+        $_SESSION['avatar'] = '/uploads/'.$url;
+        message('头像设置成功~',2,'/blog/index');
     }
     //  上传头像
     public function avatar()

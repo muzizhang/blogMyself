@@ -7,10 +7,12 @@ class Upload
     private function __construct(){}
     private static $_img = null;
     private function __clone(){}
-    public static function getInstance()
+    public static function make()
     {
-        if(self::$_img != null)
+        if(self::$_img === null)
+        {
             self::$_img = new self;
+        }
         return self::$_img;
     }
 
@@ -31,24 +33,29 @@ class Upload
     //      二级目录
     public function upload($name,$subdir)
     {
-        $this->_file = $_FILES['name'];
+
         $this->_subdir = $subdir;
+        $this->_file = $_FILES[$name];
+        // return $this->_file['type'];
+        // die;
+        // if(!$this->_checkType())
+        // {
+        //     die('图片类型不正确！');
+        // }
 
-        if(!$this->_checkType())
-        {
-            die('图片类型不正确！');
-        }
-
-        if(!$this->_checkSize())
-        {
-            die('图片尺寸不正确！');
-        }
+        // if(!$this->_checkSize())
+        // {
+        //     die('图片尺寸不正确！');
+        // }
         
         $dir = $this->_makeDir();
-        $name = $this->_makeName();
-        move_uploaded_file($this->_file['tmp_name'],$this->_path.$dir.$name);
+     
+        $imageName = $this->_makeName();
+        // echo $imageName;
+        // die;
+        move_uploaded_file($this->_file['tmp_name'],$this->_path.$dir.$imageName);
         //  返回二级目录开始的路径
-        return $dir.$name;
+        return $dir.$imageName;
     }
     
     /* 定义私有方法 */
@@ -56,6 +63,7 @@ class Upload
     private function _makeDir()
     {
         $date = $this->_subdir.'/'.date('Ymd');
+        
         if(!is_dir($this->_path.$date))
         {
             mkdir($this->_path.$date,0777,true);

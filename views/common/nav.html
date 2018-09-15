@@ -26,6 +26,12 @@
     <a href="/user/order">充值列表</a>
     <a href="/blog/index">日志列表</a>
     <a href="/blog/create">发表日志</a>
+    <?php if(!isset($_SESSION['avatar'])):?>
+        <img style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;border: 1px solid #333;padding: 5px;" src="/images/avatar.jpeg" alt="">
+    <?php else: ?>
+        <img style="width:50px;height:50px;border-radius: 50%;vertical-align: middle;border: 1px solid #333;padding: 5px;" src="<?=$_SESSION['avatar']?>">
+    <?php endif;?>
+    
     <?= $_SESSION['email'] ?>
     <a href="">用户余额：</a>
     （<span style="color:red;font-weight: blod;"><?=$_SESSION['money']?></span> 元 ）
@@ -50,3 +56,6 @@
     
 <?php endif; ?>
 <hr>
+<script>
+
+</script>

@@ -3,6 +3,16 @@ namespace models;
 
 class User extends Base
 {  
+    //   设置头像
+    public function setAvatar($url)
+    {
+        $stmt = self::$pdo->prepare("UPDATE user SET avatar = ? WHERE id = ?");
+        return $stmt->execute([
+            $url,
+            $_SESSION['id']
+        ]);
+    }
+
     //  获取余额
     public function money()
     {
@@ -43,6 +53,7 @@ class User extends Base
             $email = explode('@',$user['email']);
             $_SESSION['email'] = $email['0'];
             $_SESSION['money'] = $user['money'];
+            $_SESSION['avatar'] = $user['avatar'];
             return TRUE;
         }
         else
