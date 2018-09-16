@@ -5,6 +5,20 @@ use models\Blog;
 
 class BlogController
 {
+    //  点赞列表
+    public function agree_list()
+    {
+        //  接收日志id
+        $id = $_GET['id'];
+        //  查询点赞用户
+        $blog = new \models\Blog;
+        $data = $blog->findUser($id);
+        
+        echo json_encode([
+            'status_code'=>'200',
+            'data'=>$data
+        ]);
+    }
     //   添加点赞
     public function agreement()
     {

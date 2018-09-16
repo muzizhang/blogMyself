@@ -3,6 +3,15 @@ namespace models;
 
 class Blog extends Base
 {
+    //  点赞列表
+    public function findUser($blogId)
+    {
+        $stmt = self::$pdo->prepare("SELECT b.user_id,u.avatar,u.email FROM blog_agree b LEFT join user u on b.user_id = u.id WHERE b.blog_id = ?");
+        $stmt->execute([
+            $blogId
+        ]);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     //  点赞
     public function agree($blogId)
     {
