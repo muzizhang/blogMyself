@@ -97,14 +97,15 @@
         url:"/blog/agree_list?id="+id,
         dataType:'json',
         success:function(data){
-            
-            var html = '';
-            for(var i=0;i<data.data.length;i++)
-            {
-                var avatar = data.data[i].avatar ? data.data[i].avatar : '/images/avatar.jpeg';
-                html += '<img class="avatar" src="'+avatar+'" alt="" title="'+data.data[i].email+'">';
+            if(data.status_code == 200){
+                var html = '';
+                for(var i=0;i<data.data.length;i++)
+                {
+                    var avatar = data.data[i].avatar ? data.data[i].avatar : '/images/avatar.jpeg';
+                    html += '<img class="avatar" src="'+avatar+'" alt="" title="'+data.data[i].email+'">';
+                }
+                $('#agree-list').html(html);
             }
-            $('#agree-list').html(html);
         }
     });
 </script>

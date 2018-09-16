@@ -9,6 +9,17 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class UserController
 {
+    //   取出所有的账号
+    public function getUser()
+    {
+        $user = new \models\User;
+        $data = $user->findUser();
+        echo json_encode([
+            'status_code'=>'200',
+            'data'=>$data
+        ]);
+    }
+
     //  导出excel
     public function excel()
     {

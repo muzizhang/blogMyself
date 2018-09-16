@@ -3,6 +3,13 @@ namespace models;
 
 class User extends Base
 {  
+    //   获取所有账号
+    public function findUser()
+    {
+        $stmt = self::$pdo->query("SELECT * FROM user");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
     //   设置头像
     public function setAvatar($url)
     {

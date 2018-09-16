@@ -16,6 +16,52 @@
         </li>
         <?php endforeach; ?>
     </ul>
+    <!-- <?=  config('mode')?> -->
+        <?php if(config('mode') == 'dev'): ?>
+            <select id="allUser">
+                <option value="">选择账号</option>
+            </select>
+        <?php endif; ?>
     <?php view('common.footer'); ?>
 </body>
 </html>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous">
+</script>
+<script>
+    //   账号切换
+    $.ajax({
+        type:'GET',
+        url:'/user/getUser',
+        dataType:'json',
+        success:function(data){
+            if(data.status_code == 200)
+            {
+                var html = '';
+                for(var i = 0;i<data.data.length;i++)
+                {
+                    html += '<option value="'+data.data[i].email+'">'+data.data[i].email+'</option>';
+                }
+                $('#allUser').append(html);
+            }
+        }
+    });
+    $('#allUser').change(function(){
+        //  获取option中的value值
+        //  $(this)   取出当前对象并转换为  jquery  对象
+        var email = $(this).val();
+        if(email != '')
+        {
+            $.ajax({
+                type:"GET",
+                url:"/tool/login?email="+email,
+                success:function(data){
+                    //  刷新
+                    window.location.reload();
+                }
+            });
+        }
+    });
+</script>
