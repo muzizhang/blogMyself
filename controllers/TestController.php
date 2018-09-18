@@ -1,8 +1,22 @@
 <?php
 namespace controllers;
+//  引入类
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class TestController
 {
+    //  测试图片
+    public function testImage()
+    {
+        //  创建图片
+        $img = Image::make(ROOT.'/public/uploads/water.jpeg');
+        //   插入图片    insert(图片路径,图片位置,图片距离)
+        $img->insert(ROOT.'/public/uploads/water.jpg','bottom-left');
+        //  保存图片   save(新的图片路径)
+        $img->save(ROOT.'/public/uploads/save.png');
+    }
+
     //  测试HTMLpurifier
     public function htmlpurifier()
     {

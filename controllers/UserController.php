@@ -6,6 +6,7 @@ use models\Order;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController
 {
@@ -180,6 +181,13 @@ class UserController
         //  调用upload模型
         $upload = \libs\Upload::make();
         $url = $upload->upload('avatar','avatar');
+
+        //  裁切
+        $img = Image::make(ROOT.'/public/uploads/'.$url);
+        var_dump($_POST);
+        // die;
+        $img->crop((int)$_POST['w'], (int)$_POST['h'], (int)$_POST['x'], (int)$_POST['y']);
+        $img->save(ROOT.'/public/uploads/'.$url);
         //  将返回的图片路径保存到数据库中
         $user = new \models\User;
         $user->setAvatar('/uploads/'.$url);

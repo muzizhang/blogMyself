@@ -3,16 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <title>上传头像</title>
+    <link rel="stylesheet" href="/cropper/cropper.min.css">
+    <style>
+            .img-container {
+                width: 500px;
+                height: 500px;
+                float:left;
+                border: 1px solid skyblue;
+            }
+            .img-preview {
+                float: left;
+                overflow: hidden;
+                margin-left: 20px;
+                border: 1px solid skyblue;
+            }
+            .preview-lg {
+                width: 240px;
+                height: 240px;
+            }
+            .preview-md {
+                width: 80px;
+                height: 80px;
+            }
+            </style>
 </head>
 <body>
     <?php view('common.nav'); ?>
     <h1>上传头像</h1>
     <form action="/user/doavatar" method="post" enctype="multipart/form-data">
         <?=csrf();?>
-        上传头像：<input type="file" name="avatar">
+        <!-- 显示原图 -->
+        <div class="img-container">
+            <img id="image" width="500" height="500" src="<?=$_SESSION['avatar']?>" alt="Picture">
+        </div>
+        <!-- 预览图片 -->
+        <div class="docs-preview clearfix">
+            <div class="img-preview preview-lg"></div>
+            <div class="img-preview preview-md"></div>
+        </div>
         <br>
-        <input type="submit" value="上传头像">
+        
+        <div style="clear:both;"></div>
+        <div>
+            <!-- 保存裁切数值 -->
+            X值：<input type="text" id="x" name="x"><br>
+            Y值：<input type="text" id="y" name="y"><br>
+            W值：<input type="text" id="w" name="w"><br>
+            H值：<input type="text" id="h" name="h"><br>
+        </div>
+        <div>
+            上传头像：<input id="file" type="file" name="avatar">
+        </div>
+        <br>
+        <div>
+            <input type="submit" value="上传头像">
+        </div>
+
     </form>
     <?php view('common.footer'); ?>
 </body>
 </html>
+<script src="/cropper/cropper.min.js"></script>
+<script>
+    //   获取id
+    var $image = $('#image');
+    var x = $('#x');
+    var y = $('#y');
+    var w = $('#w');
+    var h = $('#h');
+    // 启动  cropper 插件
+    $image.cropper({
+        aspectRatio:1,     //  缩略图比例为  1:1 比例
+        preview:'.img-preview',      //  显示缩略图的框
+        viewMode:3,     //  显示模式
+        //   裁切时触发事件
+        crop:function(e)
+        {
+            x.val(e.detail.x);             // 裁切区域左上角x坐标
+            y.val(e.detail.y);             // 裁切区域左上角y坐标
+            w.val(e.detail.width);         // 裁切区域宽高
+            h.val(e.detail.height);        // 裁切区域高度
+        }
+    });
+
+    //  文件框中的值改变
+    $('#file').change(function(){
+        //  预览图片
+        var url = getObjectUrl(this.files[0]);
+        //     将预览的图片路径，添加到src属性上
+        $image.attr('src',url);
+        //     销毁原插件
+        $image.cropper("destroy");
+        // 启动  cropper 插件
+        $image.cropper({
+            aspectRatio:1,     //  缩略图比例为  1:1 比例
+            preview:'.img-preview',      //  显示缩略图的框
+            viewMode:3,     //  显示模式
+            //   裁切时触发事件
+            crop:function(e)
+            {
+                x.val(e.detail.x);             // 裁切区域左上角x坐标
+                y.val(e.detail.y);             // 裁切区域左上角y坐标
+                w.val(e.detail.width);         // 裁切区域宽高
+                h.val(e.detail.height);        // 裁切区域高度
+            }
+        });
+    });
+    
+
+    // 预览时需要使用下面这个函数转换一下(为了兼容不同的浏览器，所以要判断支持哪一种函数就使用哪一种)
+    function getObjectUrl(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file)
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file)
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file)
+        }
+        return url
+    }
+</script>
