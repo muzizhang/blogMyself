@@ -1,4 +1,6 @@
 <?php
+//   设置时区
+date_default_timezone_set('PRC');
 //  定义一个常量
 define('ROOT',dirname(dirname(__FILE__)));
 //  由于session是保存在文件中，读取时，需要多次使用硬盘，减慢读取速率
