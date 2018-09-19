@@ -16,6 +16,14 @@
         </li>
         <?php endforeach; ?>
     </ul>
+    <h1>一周活跃用户</h1>
+    <ul>
+        <?php foreach($data as $v): ?>
+            <li>
+                <img size="50" height="50" title="<?=$v['email']?>" src="<?= $v['avatar'] ? $v['avatar'] : '/images/avatar.jpeg'; ?>" alt="">
+            </li>
+        <?php endforeach;?>
+    </ul>
     <!-- <?=  config('mode')?> -->
         <?php if(config('mode') == 'dev'): ?>
             <select id="allUser">

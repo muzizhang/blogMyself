@@ -10,6 +10,19 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController
 {
+    public function getActiveUser()
+    {
+        $user = new \models\User;
+        $data = $user->getActive();
+        echo '<pre>';
+        var_dump($data);
+    }
+    //   活跃用户
+    public function setActiveUser()
+    {
+        $user = new User;
+        $user->setActive();
+    }
     //   取出所有的账号
     public function getUser()
     {

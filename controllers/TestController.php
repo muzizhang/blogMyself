@@ -6,6 +6,64 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class TestController
 {
+    //  测试排行
+    public function testOrder()
+    {
+        //  日志排行
+        $data = [
+            '3'=>'50',
+            '8'=>'90',
+            '5'=>'10'
+        ];
+        //  评论排行
+        $data1 = [
+            '9'=>'20',
+            '1'=>'30',
+            '3'=>'60',
+            '8'=>'5'
+        ];
+        //  点赞排行
+        $data2 = [
+            '7'=>'200',
+            '8'=>'40',
+            '5'=>'10',
+            '6'=>'22',
+            '4'=>'31'
+        ];
+        //  将数组进行合并
+        foreach($data1 as $k=>$v)
+        {
+            //  判断当前数组中的键是否有与第一个数组相同的键
+            // echo $k .'=>'. $v.'<br>';
+            // echo $data[$k].'<br>';
+            if(isset($data[$k]))
+            {
+                $data[$k] += $v;
+                
+            }
+            else
+            {
+                $data[$k] = $v;
+            }
+        }
+        foreach($data2 as $k=>$v)
+        {
+            //  判断当前数组中的键是否有与第一个数组相同的键
+            // echo $k .'=>'. $v.'<br>';
+            // echo $data[$k].'<br>';
+            if(isset($data[$k]))
+            {
+                $data[$k] += $v;
+                
+            }
+            else
+            {
+                $data[$k] = $v;
+            }
+        }
+        echo '<pre>';
+        var_dump($data);
+    }
     //  测试图片
     public function testImage()
     {

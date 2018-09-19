@@ -36,3 +36,62 @@ predis客户端redis
 
 ## qrcode
 生成二维码图片
+
+
+# 活跃用户
+- 查看一周之内最活跃的用户
+- 活跃用户算法：发表日志5分，评论3分，点赞1分
+
+
+- 取出一周之内，所有用户发表日志的数量
+~~~sql
+    SELECT user_id,count(*)
+        FROM blog 
+            WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) 
+                GROUP BY user_id
+~~~
+- 取出一周之内，所有用户评论日志的数量
+~~~sql
+    SELECT user_id,count(*)
+        FROM comment 
+            WHERE created_at >= DATE_SUB(CURDATE(),INTERVAL 1 WEEK)
+                GROUP BY user_id
+~~~
+- 取出一周之内，所有用户点赞日志的数量
+~~~sql
+    SELECT user_id,count(*)
+        FROM blog_agree 
+            WHERE created_at >= DATE_SUB(CURDATE(),INTERVAL 1 WEEK)
+                GROUP BY user_id
+~~~
+
+## 思路  
+    取出的数据为二维数组，所以需将二维数组转换为一维数组，于是将二维数组放置到一维数组中， 
+        二维数组的第一个 键值对   为一维数组的 键
+        二维数组的第二个 键值对   为一位数组的 值
+    
+~~~php 
+      用户ID
+ //  定义空数组
+ $arr = [];
+ //  赋值
+ foreach($data as $v)
+ {
+     $arr[$v['user_id']] = $v['fz']
+ }
+ //  合并数组
+ 将后面几个数组，合并到第一个数组中  foreach循环
+
+ //  合并完，将截取20个
+ array_slice(数组,开始位置,个数,true)
+ 
+ //   获取数组的键
+ array_keys(数组)
+ //  将数组，转换为字符串
+ implode(切换符号，数组);
+ //  根据user_id   查询出相应的信息
+ //   为了减缓数据库的压力：
+        采用redis保存数据 ， 定义脚本，自动执行 更新数据  
+            crontab -e   //  进入编辑    liunx mac
+        $redis->set(名称,json数据 [字符串])    
+ 
